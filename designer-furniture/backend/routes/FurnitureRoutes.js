@@ -34,44 +34,57 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all furniture
+// Get all furniture with filtering options (search, category, minPrice, maxPrice, designer)
 router.get("/", async (req, res) => {
   try {
-      const { search, category, minPrice, maxPrice } = req.query;
-      let filter = {};
+    const { search, category, minPrice, maxPrice, designer } = req.query;
 
-      if (search) {
-          filter.name = { $regex: search, $options: "i" }; // Case-insensitive search
-      }
+    let filter = {};
 
-      if (category) {
-          filter.category = category;
-      }
+    if (search) {
+      filter.name = { $regex: search, $options: "i" }; // Case-insensitive search for furniture name
+    }
 
-      if (minPrice || maxPrice) {
-          filter.price = {};
-          if (minPrice) filter.price.$gte = minPrice;
-          if (maxPrice) filter.price.$lte = maxPrice;
-      }
+    if (designer) {
+      filter.designer = { $regex: designer, $options: "i" }; // Case-insensitive search for designer name
+    }
 
-      const furniture = await Furniture.find(filter);
-      res.json(furniture);
+    if (category) {
+      filter.category = category;
+    }
+
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = minPrice;
+      if (maxPrice) filter.price.$lte = maxPrice;
+    }
+
+    const furniture = await Furniture.find(filter); // Find furniture with applied filters
+    res.json(furniture);
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
-// Search furniture by category or designer
+
+// Search furniture by name or designer
 router.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
+    if (!query) return res.status(400).json({ message: "Query parameter is missing" });
+
     const furniture = await Furniture.find({
-      $or: [{ category: query }, { designer: new RegExp(query, "i") }],
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { designer: { $regex: query, $options: "i" } },
+      ],
     });
+
     res.json(furniture);
   } catch (error) {
     res.status(500).json({ message: "Search failed", error: error.message });
   }
 });
+
 
 export default router;

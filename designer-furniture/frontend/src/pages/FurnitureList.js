@@ -7,37 +7,45 @@ const FurnitureList = () => {
 
   useEffect(() => {
     const fetchFurniture = async () => {
-        try {
-          console.log("Fetching with query:", location.search);
-          const response = await fetch(`http://localhost:5000/api/furniture${location.search}`);
-          
-          if (!response.ok) {
-            throw new Error(`Server returned ${response.status}: ${response.statusText}`);
-          }
-      
-          const data = await response.json();
-          setFurniture(data);
-        } catch (error) {
-          console.error("Error fetching furniture:", error);
-        }
-      };
-      
+      const queryParams = new URLSearchParams(location.search);
+      const query = queryParams.get("query"); // Get the search query from the URL
 
-    fetchFurniture();
+      if (!query) return; // If no query, don't fetch anything
+
+      try {
+        const response = await fetch(`/search?query=${query}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          setFurniture(data); // Set furniture data if found
+        } else {
+          setFurniture([]); // No results
+        }
+      } catch (error) {
+        console.error("Error fetching furniture:", error);
+      }
+    };
+
+    fetchFurniture(); // Call fetchFurniture when the component mounts or search query changes
   }, [location.search]);
 
   return (
     <div>
-      <h2>Furniture List</h2>
-      <ul>
-        {furniture.map((item) => (
-          <li key={item.id}>
-            <h3>{item.name}</h3>
-            <p>Price: ${item.price}</p>
-            <p>Category: {item.category}</p>
-          </li>
-        ))}
-      </ul>
+      <h1>Furniture List</h1>
+      {furniture.length === 0 ? (
+        <p>No furniture found for this search.</p>
+      ) : (
+        <ul>
+          {furniture.map((item) => (
+            <li key={item.id}>
+              <h2>{item.name}</h2>
+              <p>Price: ${item.price}</p>
+              <p>Category: {item.category}</p>
+              <p>Designer: {item.designer}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
