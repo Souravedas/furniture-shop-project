@@ -1,96 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar"; // Import SearchBar
-import "./HomePage.css";
-
-const furnitureImages = [
-  "/images/table.jpg",
-  "/images/sofa.jpg",
-  "/images/chair.jpg",
-  "/images/living-table.jpg",
-  "/images/cushion.jpg",
-];
+import axios from "axios";
+import ImageSlider from "../components/ImageSlider";
 
 const HomePage = () => {
-  const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % furnitureImages.length);
-    }, 3000); // Change image every 3 seconds
+    const fetchSliderImages = async () => {
+      try {
+        const response = await axios.get("/api/furniture");
+        setImages(response.data.map(item => item.image).slice(0, 5));
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
 
-    return () => clearInterval(interval);
+    fetchSliderImages();
   }, []);
 
-  // Handle search query
-  const handleSearch = (filters) => {
-    console.log("Navigating with query:", filters);
-    const queryParams = new URLSearchParams(filters).toString();
-    navigate(`/search?${queryParams}`);
-  };
-
   return (
-    <div className="homepage">
-      {/* Search Bar */}
-      <SearchBar onSearch={handleSearch} />
-
-      {/* Navigation */}
-      <nav>
-        
-      </nav>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <h1>Welcome to Designer Furniture</h1>
-        <p>Discover the perfect furniture for your home.</p>
-      </section>
-
-      {/* Furniture Showcase */}
-      <div className="furniture-showcase">
-        <h2>Furniture Showcase</h2>
-        <div className="furniture-grid">
-          {furnitureImages.map((image, index) => (
-            <div key={index} className="furniture-item">
-              <img src={image} alt={`Furniture ${index + 1}`} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Animated Furniture Showcase */}
-      <div className="image-slider">
-        <img src={furnitureImages[currentImage]} alt="Furniture Showcase" />
-      </div>
+    <div> {/* ✅ Wrap everything inside one div */}
+      <h1>Welcome to Designer Furniture Search</h1>
+      
+      {/* Image Slider */}
+      <ImageSlider images={images} />
 
       {/* Scroll Button */}
-      <button className="scroll-btn" onClick={() => window.scrollTo({ top: 600, behavior: "smooth" })}>
-        Scroll Down
+      <button 
+        onClick={() => window.scrollTo({ top: 600, behavior: "smooth" })}
+        style={{ position: "relative", bottom: "20px", left: "50%", transform: "translateX(-50%)", padding: "10px 20px" }}>
+        ⬇ Scroll Down
       </button>
 
-      {/* News Section */}
-      <section className="news">
-        <h2>Furniture News</h2>
-        <p>Read the latest trends and styles in furniture design.</p>
-      </section>
-
       {/* About Section */}
-      <section className="about">
-        <h2>About Us</h2>
-        <p>Find designer furniture from top brands, all in one place.</p>
-      </section>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "50px" }}>
+        <img src="/about.jpg" alt="About Us" width="40%" />
+        <p style={{ marginLeft: "20px" }}>We help you find the best designer furniture.</p>
+      </div>
 
-      {/* Product Categories */}
-      <section className="categories">
-        <h2>Browse Categories</h2>
-        <div className="category-list">
-          {["Table", "Sofa", "Chair", "Living Table", "Cushion"].map((category) => (
-            <button key={category} onClick={() => navigate(`/search?query=${category}`)}>
-              {category}
-            </button>
-          ))}
-        </div>
-      </section>
+      {/* Contact Section */}
+      <div style={{ display: "flex", alignItems: "center", marginTop: "50px" }}>
+        <p style={{ marginRight: "20px" }}>Contact us at support@furnitureshop.com</p>
+        <img src="/contact.jpg" alt="Contact Us" width="40%" />
+      </div>
+
+      {/* Product Section */}
+      <h2>Explore Our Categories</h2>
+      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+        {["sofa", "table", "chair", "cushion", "living_table"].map((category) => (
+          <div key={category} style={{ position: "relative", cursor: "pointer" }} onClick={() => navigate(`/search?category=${category}`)}>
+            <img src={`/images/${category}.jpg`} alt={category} style={{ width: "200px", transition: "transform 0.3s" }} />
+            <p style={{ position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)", background: "rgba(0,0,0,0.5)", color: "white", padding: "5px" }}>{category}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
