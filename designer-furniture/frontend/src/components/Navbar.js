@@ -1,17 +1,24 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext"; // ✅ Import AuthContext
+import "../styles/Navbar.css"; // ✅ Import CSS
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext); // ✅ Define user
+  const { user } = useContext(AuthContext); // ✅ Get User Info
 
   return (
-    <nav>
-      <h1>Designer Furniture Search</h1>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/search">Product</Link></li>
+    <nav className="navbar">
+      {/* ✅ Left Side: Logo */}
+      <div className="navbar-logo">
+        <Link to="/">
+          <img src="/logo.png" alt="Logo" />
+        </Link>
+      </div>
 
+      {/* ✅ Right Side: Menu Items */}
+      <ul className="navbar-links">
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
         {user && user.isAdmin && <li><Link to="/admin">Admin Panel</Link></li>}
         {user ? (
           <>
@@ -20,8 +27,10 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
+            <li className="navbar-login">
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </li>
           </>
         )}
       </ul>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ImageSlider from "../components/ImageSlider";
+import "../styles/global.css";
 
 const HomePage = () => {
   const navigate = useNavigate();

@@ -1,0 +1,62 @@
+/* Navbar Container */
+.navbar {
+    width: 100%;
+    height: 50px;
+    background-color: #755139;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    position:relative;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  /* Logo */
+  .navbar-logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* ✅ Makes the Logo Round */
+    object-fit: cover;
+  }
+  
+  /* Navbar Links */
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .navbar-links li {
+    display: inline;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: #F2EDD7;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-links a:hover {
+    color: white;
+  }
+  
+  /* Login Button */
+  .navbar-login a {
+    background-color: #F2EDD7;
+    color: #755139;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .navbar-login a:hover {
+    background-color: white;
+  }
+  
