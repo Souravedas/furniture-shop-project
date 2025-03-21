@@ -1,0 +1,6 @@
+/* local imports */
+@import 'global.css';
+@import 'Navbar.css'; /*navbar design*/
+@import 'HomePage.css'; /*home section design*/
+@import 'ImageSlider.css'; /*image slider design*/
+@import 'about.css'; /*about section design*/

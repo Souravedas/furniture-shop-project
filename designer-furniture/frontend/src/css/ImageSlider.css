@@ -1,0 +1,85 @@
+/* Image Slider Container */
+.slider-container {
+    width: 100%;
+    height: calc(100vh - 70px);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Individual Slides */
+  .slide {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Slide Image */
+  .slide-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    transition: transform 0.8s ease-in-out;
+  }
+  
+  /* Centered Text */
+  .slider-text {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-family: "Mulish", sans-serif;
+    opacity: 0;
+    animation: fadeInSlideUp 1.5s ease-in-out forwards;
+  }
+  
+  .slider-text h1 {
+    font-size: 48px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .slider-text p {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 10px;
+  }
+  
+  /* Scroll Button */
+  .scroll-button {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #755139;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .scroll-button:hover {
+    background: #755139;
+    color: white;
+  }
+  
+  /* Text Animation */
+  @keyframes fadeInSlideUp {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -30%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+  

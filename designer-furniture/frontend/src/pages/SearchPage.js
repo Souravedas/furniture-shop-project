@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../css/styles.css";
 
 const SearchPage = () => {
   const [category, setCategory] = useState("");

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import "../css/styles.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ const LoginPage = () => {
         <p>
         <a href="/forgot-password">Forgot Password?</a>
         </p>
+        <p>Don't have an account? <a href="/register">Register</a></p>
       </form>
     </div>
   );

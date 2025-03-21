@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
@@ -8,14 +8,15 @@ import SearchPage from "./pages/SearchPage";
 import AdminPanel from "./pages/AdminPanel";
 import ProfilePage from "./pages/ProfilePage";
 import Footer from "./components/Footer"; 
-import Navbar from "./components/Navbar"; 
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 
 function App() {
+  const location = useLocation();
+  const hideFooter = location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/forgot-password";
+
   return (
     <AuthProvider>
-      <Navbar /> {/* ✅ Navbar at the top */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -25,7 +26,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
-      <Footer /> {/* ✅ Footer at the bottom */}
+      {!hideFooter && <Footer />}
     </AuthProvider>
   );
 }
