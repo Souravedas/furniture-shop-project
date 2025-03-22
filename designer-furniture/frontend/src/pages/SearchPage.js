@@ -3,91 +3,72 @@ import axios from "axios";
 import "../css/styles.css";
 
 const SearchPage = () => {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("all");
   const [furniture, setFurniture] = useState([]);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(
+    JSON.parse(localStorage.getItem("selectedItems")) || []
+  );
 
   useEffect(() => {
     const fetchFurniture = async () => {
       try {
-        const response = await axios.get(`/api/furniture?category=${category}`);
+        const response = await axios.get(
+          category === "all" ? "/api/furniture" : `/api/furniture?category=${category}`
+        );
         setFurniture(response.data);
       } catch (error) {
         console.error("Error fetching furniture:", error);
       }
     };
-  
-    if (category) {
-      fetchFurniture();
-    }
-  }, [category]); // ✅ Runs whenever `category` changes  
 
+    fetchFurniture();
+  }, [category]);
 
-  // Handle furniture selection for comparison
+  // ✅ Handle furniture selection for comparison (Persistent)
   const handleSelect = (item) => {
     if (selectedItems.length < 2) {
-      setSelectedItems((prev) => [...prev, item]);
+      const updatedSelection = [...selectedItems, item];
+      setSelectedItems(updatedSelection);
+      localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
     } else {
       alert("You can only compare two items at a time!");
     }
   };
 
-  // Clear comparison
+  // ✅ Clear comparison (Also clear from local storage)
   const clearComparison = () => {
     setSelectedItems([]);
+    localStorage.removeItem("selectedItems");
   };
-
-  const handleSearch = async (category) => {
-    setCategory(category);
-  
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("You must log in first.");
-        return;
-      }
-  
-      // Save last search category to the database
-      await axios.put(
-        "/api/profile/update-search",
-        { lastSearchCategory: category },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-  
-      // Fetch furniture based on selected category
-      const response = await axios.get(`/api/furniture?category=${category}`);
-      setFurniture(response.data); // ✅ Update the displayed furniture list
-    } catch (error) {
-      console.error("Error fetching furniture:", error);
-      alert("Failed to update search results.");
-    }
-  };
-  
 
   return (
-    <div>
+    <div className="search-container">
       <h2>Search & Compare Furniture</h2>
-      <select onChange={(e) => handleSearch(e.target.value)}>
-  <option value="">All Categories</option>
-  <option value="sofa">Sofa</option>
-  <option value="table">Table</option>
-  <option value="chair">Chair</option>
-  <option value="cushion">Cushion</option>
-  <option value="living table">Living Table</option>
-</select>
 
+      {/* ✅ Category Filter */}
+      <select onChange={(e) => setCategory(e.target.value)} className="category-dropdown">
+        <option value="all">All Categories</option>
+        <option value="sofa">Sofa</option>
+        <option value="table">Table</option>
+        <option value="chair">Chair</option>
+        <option value="cushion">Cushion</option>
+        <option value="living table">Living Table</option>
+      </select>
 
-      <div>
+      {/* ✅ Furniture Grid */}
+      <div className="product-grid">
         {furniture.length > 0 ? (
           furniture.map((item) => (
-            <div key={item._id} style={{ border: "1px solid #ddd", padding: "10px", margin: "10px" }}>
-              <img src={item.image} alt={item.name} style={{ width: "150px" }} />
+            <div key={item._id} className="product-card">
+              <img src={item.image} alt={item.name} />
               <h3>{item.name}</h3>
-              <p>Designer: {item.designer}</p>
-              <p>Category: {item.category}</p>
-              <p>Price: ${item.price}</p>
-              <button onClick={() => window.open(item.link, "_blank")}>View Product</button>
-              <button onClick={() => handleSelect(item)}>Compare</button>
+              <p><strong>Designer:</strong> {item.designer}</p>
+              <p><strong>Category:</strong> {item.category}</p>
+              <p><strong>Price:</strong> ${item.price}</p>
+              <div className="product-buttons">
+                <button onClick={() => window.open(item.link, "_blank")}>View Product</button>
+                <button onClick={() => handleSelect(item)}>Compare</button>
+              </div>
             </div>
           ))
         ) : (
@@ -95,14 +76,14 @@ const SearchPage = () => {
         )}
       </div>
 
-      {/* Comparison Section */}
-      {selectedItems.length === 2 && (
-        <div style={{ border: "2px solid #000", padding: "10px", margin: "20px 0" }}>
+      {/* ✅ Persistent Comparison Section */}
+      {selectedItems.length > 0 && (
+        <div className="comparison-container">
           <h2>Comparison</h2>
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <div className="comparison-grid">
             {selectedItems.map((item) => (
-              <div key={item._id} style={{ border: "1px solid gray", padding: "10px", width: "45%" }}>
-                <img src={item.image} alt={item.name} style={{ width: "100px" }} />
+              <div key={item._id} className="comparison-card">
+                <img src={item.image} alt={item.name} />
                 <h3>{item.name}</h3>
                 <p><strong>Designer:</strong> {item.designer}</p>
                 <p><strong>Category:</strong> {item.category}</p>
@@ -111,7 +92,7 @@ const SearchPage = () => {
               </div>
             ))}
           </div>
-          <button onClick={clearComparison}>Clear Comparison</button>
+          <button onClick={clearComparison} className="clear-comparison-btn">Clear Comparison</button>
         </div>
       )}
     </div>

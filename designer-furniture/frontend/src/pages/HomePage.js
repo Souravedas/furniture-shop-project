@@ -66,14 +66,13 @@ const HomePage = ({ aboutRef, contactRef }) => {
         </div>
       </section>
 
-      {/* contact section  */}
-
-      <ContactSection  contactRef={contactRef}/>
-
-      {/* contact section  */}
-
       {/* Product Section */}
       <ProductSection/>
+
+            {/* contact section  */}
+
+            <ContactSection  contactRef={contactRef}/>
+
     </div>
   );
 };

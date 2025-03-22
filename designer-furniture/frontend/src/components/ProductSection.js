@@ -23,7 +23,7 @@ const ProductSection = () => {
               <div className="product-image">
                 <img src={`/images/${category}.jpg`} alt={category} />
                 <div className="overlay">
-                  <p>View {category}</p>
+                  <p>{category}</p>
                 </div>
               </div>
               <p className="product-name">{category}</p>
