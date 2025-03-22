@@ -72,41 +72,42 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
                 </li>
               )}
 
-              {user ? (
-                <li className={`profile-menu ${dropdownOpen ? "open" : ""}`} ref={dropdownRef}>
-                <div className="profile-dropdown" onClick={toggleDropdown}>
-                  {user.profilePicture ? (
-                    <img
-                      src={user.profilePicture}
-                      alt="Profile"
-                      className="profile-pic"
-                    />
-                  ) : (
-                    <div className="profile-initials">{getInitials(user.name)}</div>
-                  )}
-                </div>
-              
-                {/* Dropdown Menu */}
-                <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
-                  <li>
-                    <button to="/profile">Profile</button>
-                  </li>
-                  <li>
-                    <button onClick={handleLogout}>Logout</button>
-                  </li>
-                </ul>
-              </li>
-              
-              ) : (
-                <>
-                  <li className="navbar-login">
-                    <Link to="/login">Login</Link>
-                  </li>
-                  <li className="navbar-register">
-                    <Link to="/register">Register</Link>
-                  </li>
-                </>
-              )}
+{user ? (
+  <li className={`profile-menu ${dropdownOpen ? "open" : ""}`} ref={dropdownRef}>
+    <div className="profile-dropdown" onClick={toggleDropdown}>
+      {user.profilePicture ? (
+        <img
+          src={user.profilePicture}
+          alt="Profile"
+          className="profile-pic"
+        />
+      ) : (
+        <div className="profile-initials">{getInitials(user.name)}</div>
+      )}
+    </div>
+
+    {/* Dropdown Menu */}
+    <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
+      {/* Use Link for Profile Navigation */}
+      <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+      <li>
+        <button onClick={handleLogout}>Logout</button>
+      </li>
+    </ul>
+  </li>
+) : (
+  <>
+    <li className="navbar-login">
+      <Link to="/login">Login</Link>
+    </li>
+    <li className="navbar-register">
+      <Link to="/register">Register</Link>
+    </li>
+  </>
+)}
+
             </ul>
           </div>
         </div>
