@@ -1,6 +1,10 @@
 /* local imports */
 @import 'global.css';
 @import 'Navbar.css'; /*navbar design*/
-@import 'HomePage.css'; /*home section design*/
 @import 'ImageSlider.css'; /*image slider design*/
 @import 'about.css'; /*about section design*/
+@import 'ContactSection.css'; /*contact section design*/
+@import 'ProductSection.css'; /*product section design*/
+@import 'Footer.css'; /*footer design*/
+@import 'AdminPanel.css'; /*admin panel design*/
+@import 'ProfilePage.css'; /*profile page design*/

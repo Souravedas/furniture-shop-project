@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ImageSlider from "../components/ImageSlider";
-import Navbar from "../components/Navbar"; // Only import once
+import ContactSection from "../components/ContactSection";
+import ProductSection from "../components/ProductSection";
 import "../css/styles.css";
 
-const HomePage = () => {
-  const navigate = useNavigate();
+const HomePage = ({ aboutRef, contactRef }) => {
   const [images, setImages] = useState([]);
-  const aboutRef = useRef(null); // Create ref for the About section
 
   useEffect(() => {
     const fetchSliderImages = async () => {
@@ -23,18 +21,8 @@ const HomePage = () => {
     fetchSliderImages();
   }, []);
 
-  // Function to scroll to the About section
-  const scrollToAbout = () => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <div>
-      {/* Only render Navbar once */}
-      <Navbar scrollToAbout={scrollToAbout} />
-
       {/* Image Slider */}
       <ImageSlider images={images} />
 
@@ -78,28 +66,14 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="contact-section">
-        <div className="container">
-          <div className="contact-content">
-            <p>Contact us at <a href="mailto:support@furnitureshop.com">support@furnitureshop.com</a></p>
-            <img src="/images/contact.jpg" alt="Customer Support" width="40%" />
-          </div>
-        </div>
-      </section>
+      {/* contact section  */}
+
+      <ContactSection  contactRef={contactRef}/>
+
+      {/* contact section  */}
 
       {/* Product Section */}
-      <section className="product-section">
-        <h2>Explore Our Products</h2>
-        <div className="product-grid">
-          {["sofa", "table", "chair", "cushion", "living table"].map((category) => (
-            <div key={category} className="product-item" onClick={() => navigate(`/search?category=${category}`)}>
-              <img src={`/images/${category}.jpg`} alt={category} style={{ width: "100%", height: "auto", cursor: "pointer", transition: "transform 0.3s ease", ":hover": { transform: "scale(1.1)" }, ":active": { transform: "scale(0.9)", backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "5px" } }}/>
-              <p>{category}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ProductSection/>
     </div>
   );
 };

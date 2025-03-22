@@ -1,0 +1,78 @@
+/* Contact Section */
+.contact {
+    /* background-color: #F2EDD7; */
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .section-title h2 {
+    color: #755139;
+    font-size: 28px;
+    text-transform: uppercase;
+  }
+  
+  .contact-box {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+  }
+  
+  .contact-box a {
+    text-decoration: none;
+    color: #755139;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .contact-box i {
+    font-size: 24px;
+    color: #755139;
+  }
+  
+  /* Form */
+  .input-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .input-box .boxes {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #755139;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #fff;
+  }
+  
+  textarea {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #755139;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #fff;
+    resize: none;
+    margin-top: 15px;
+  }
+  
+  .send-btn {
+    margin-top: 20px;
+    background: #755139;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .send-btn:hover {
+    background: #603c2f;
+  }
+  
