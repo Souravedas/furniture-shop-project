@@ -1,7 +1,7 @@
 /* Product Section */
 .product-section {
     background: #F2EDD7;
-    padding: 60px 0;
+    padding: 50px 0;
     text-align: center;
   }
   
@@ -13,11 +13,12 @@
   }
   
   /* Product Grid */
-  .product-grid {
+  .products-grid {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 60px;
+    padding-top: 20px;
   }
   
   /* Product Item */

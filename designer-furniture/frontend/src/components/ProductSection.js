@@ -13,7 +13,7 @@ const ProductSection = () => {
           <h2>Explore Our Products</h2>
         </div>
 
-        <div className="product-grid">
+        <div className="products-grid">
           {categories.map((category) => (
             <div 
               key={category} 
