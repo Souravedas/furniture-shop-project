@@ -3,15 +3,19 @@ const Furniture = require("../models/Furniture");
 // Get all furniture
 exports.getFurniture = async (req, res) => {
   try {
-    let query = {};
-    if (req.query.category) {
-      query.category = req.query.category;
-    }
+    const { category } = req.query;
+    let furniture;
 
-    const furniture = await Furniture.find(query);
+    if (category && category !== "all") {
+      const formattedCategory = category.replace(/_/g, " ");
+      furniture = await Furniture.find({ category: formattedCategory }); 
+    } else {
+      furniture = await Furniture.find();
+    }
     res.json(furniture);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching furniture:", error);
+    res.status(500).json({ message: "Error fetching furniture" });
   }
 };
 
@@ -30,3 +34,50 @@ exports.addFurniture = async (req, res) => {
   }
 };
 
+// Update furniture (Admin only)
+exports.updateFurniture = async (req, res) => {
+  try {
+    const { name, designer, category, description, price, image, link } = req.body;
+    const { id } = req.params; // ✅ Get furniture ID from URL
+
+    const furniture = await Furniture.findById(id);
+    if (!furniture) {
+      return res.status(404).json({ message: "Furniture not found" });
+    }
+
+    // ✅ Update the furniture details
+    furniture.name = name || furniture.name;
+    furniture.designer = designer || furniture.designer;
+    furniture.category = category || furniture.category;
+    furniture.description = description || furniture.description;
+    furniture.price = price || furniture.price;
+    furniture.image = image || furniture.image;
+    furniture.link = link || furniture.link;
+
+    await furniture.save(); // ✅ Save updates
+
+    res.json({ message: "Furniture updated successfully", furniture });
+  } catch (error) {
+    console.error("Error updating furniture:", error);
+    res.status(500).json({ message: "Error updating furniture" });
+  }
+};
+
+// Delete furniture (Admin only)
+exports.deleteFurniture = async (req, res) => {
+  try {
+    const { id } = req.params; // ✅ Get furniture ID from URL
+
+    const furniture = await Furniture.findById(id);
+    if (!furniture) {
+      return res.status(404).json({ message: "Furniture not found" });
+    }
+
+    await furniture.deleteOne(); // ✅ Delete from database
+
+    res.json({ message: "Furniture deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting furniture:", error);
+    res.status(500).json({ message: "Error deleting furniture" });
+  }
+};

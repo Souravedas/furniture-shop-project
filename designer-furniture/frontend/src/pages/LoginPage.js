@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "../css/styles.css";
 
@@ -30,7 +30,7 @@ const LoginPage = () => {
         <p>
         <a href="/forgot-password">Forgot Password?</a>
         </p>
-        <p>Don't have an account? <a href="/register">Register</a></p>
+        <p>Don't have an account? <NavLink to="/register">Register</NavLink></p>
       </form>
     </div>
   );

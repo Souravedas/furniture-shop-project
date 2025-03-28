@@ -18,15 +18,18 @@
   
   /* ======= Product Grid ======= */
   .product-grid {
+    /* width: 600px; */
     display: flex;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     justify-content: center;
+    /* margin: 0 auto; */
     padding: 20px;
   }
   
   /* ======= Individual Product Card ======= */
   .product-card {
+    width: 300px;
     background: white;
     padding: 15px;
     border-radius: 10px;

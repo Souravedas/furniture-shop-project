@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import "../css/styles.css";
 
 const SearchPage = () => {
-  const [category, setCategory] = useState("all");
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category") || "all";
+  const [category, setCategory] = useState(initialCategory);
   const [furniture, setFurniture] = useState([]);
   const [selectedItems, setSelectedItems] = useState(
     JSON.parse(localStorage.getItem("selectedItems")) || []
   );
 
+  // Ensure category updates when clicking from Product Section
   useEffect(() => {
     const fetchFurniture = async () => {
       try {
+        const formattedCategory = category.replace(/_/g, " ");
+
         const response = await axios.get(
-          category === "all" ? "/api/furniture" : `/api/furniture?category=${category}`
+          category === "all" ? "/api/furniture" : `/api/furniture?category=${encodeURIComponent(formattedCategory)}`
         );
+
         setFurniture(response.data);
       } catch (error) {
         console.error("Error fetching furniture:", error);
@@ -24,7 +31,7 @@ const SearchPage = () => {
     fetchFurniture();
   }, [category]);
 
-  // ✅ Handle furniture selection for comparison (Persistent)
+  // Handle furniture selection for comparison (Persistent)
   const handleSelect = (item) => {
     if (selectedItems.length < 2) {
       const updatedSelection = [...selectedItems, item];
@@ -35,7 +42,7 @@ const SearchPage = () => {
     }
   };
 
-  // ✅ Clear comparison (Also clear from local storage)
+  // Clear comparison (Also clear from local storage)
   const clearComparison = () => {
     setSelectedItems([]);
     localStorage.removeItem("selectedItems");
@@ -45,17 +52,21 @@ const SearchPage = () => {
     <div className="search-container">
       <h2>Search & Compare Furniture</h2>
 
-      {/* ✅ Category Filter */}
-      <select onChange={(e) => setCategory(e.target.value)} className="category-dropdown">
+      {/* Category Filter */}
+      <select
+        onChange={(e) => setCategory(e.target.value)}
+        className="category-dropdown"
+        value={category} // ✅ Keep dropdown updated
+      >
         <option value="all">All Categories</option>
         <option value="sofa">Sofa</option>
         <option value="table">Table</option>
         <option value="chair">Chair</option>
         <option value="cushion">Cushion</option>
-        <option value="living table">Living Table</option>
+        <option value="dining table">Dining Table</option>
       </select>
 
-      {/* ✅ Furniture Grid */}
+      {/* Furniture Grid */}
       <div className="product-grid">
         {furniture.length > 0 ? (
           furniture.map((item) => (
@@ -76,7 +87,7 @@ const SearchPage = () => {
         )}
       </div>
 
-      {/* ✅ Persistent Comparison Section */}
+      {/* Persistent Comparison Section */}
       {selectedItems.length > 0 && (
         <div className="comparison-container">
           <h2>Comparison</h2>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AuthContext from "../context/AuthContext"; // ✅ Import AuthContext
 import "../css/styles.css"; // ✅ Import CSS
 
@@ -17,13 +17,13 @@ const Footer = () => {
             <ul>
               <li><a href="#about">About Us</a></li>
               <li><a href="#contact">Contact</a></li>
-              <li><a href="/search">Products</a></li>
+              <li><NavLink to="/search">Products</NavLink></li>
 
               {/* ✅ Show Login only if user is NOT logged in */}
-              {!user && <li><Link to="/login">Login</Link></li>}
+              {!user && <li><NavLink to="/login">Login</NavLink></li>}
 
               {/* ✅ Show Profile instead of Login if user is logged in */}
-              {user && <li><Link to="/profile">Profile</Link></li>}
+              {user && <li><NavLink to="/profile">Profile</NavLink></li>}
             </ul>
           </div>
 

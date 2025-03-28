@@ -20,7 +20,7 @@ exports.updateProfile = async (req, res) => {
     if (user) {
       user.name = name || user.name;
       user.email = email || user.email;
-      user.profilePicture = profilePicture || user.profilePicture;
+      user.profilePicture = profilePicture || user.profilePicture; // ✅ Ensure profile picture gets updated
       await user.save();
       res.json({ message: "Profile updated successfully", user });
     } else {
@@ -30,6 +30,7 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Change password
 exports.changePassword = async (req, res) => {

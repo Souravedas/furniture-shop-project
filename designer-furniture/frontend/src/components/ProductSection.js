@@ -1,10 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/styles.css"; // ✅ Import styles
+import { formatCategoryName } from "../utils/formatCategory"; // ✅ Import helper function
 
 const ProductSection = () => {
   const navigate = useNavigate();
-  const categories = ["sofa", "table", "chair", "cushion", "living_table"];
+  const categories = ["sofa", "table", "chair", "cushion", "dining table"]; // ✅ No underscore
 
   return (
     <section className="product-section">
@@ -18,15 +19,15 @@ const ProductSection = () => {
             <div 
               key={category} 
               className="product-item" 
-              onClick={() => navigate(`/search?category=${category}`)}
+              onClick={() => navigate(`/search?category=${encodeURIComponent(category)}`)} // ✅ Encode space
             >
               <div className="product-image">
-                <img src={`/images/${category}.jpg`} alt={category} />
+                <img src={`/images/${category.replace(/\s+/g, "_")}.jpg`} alt={formatCategoryName(category)} /> 
                 <div className="overlay">
-                  <p>{category}</p>
+                  <p>{formatCategoryName(category)}</p> 
                 </div>
               </div>
-              <p className="product-name">{category}</p>
+              <p className="product-name">{formatCategoryName(category)}</p> 
             </div>
           ))}
         </div>

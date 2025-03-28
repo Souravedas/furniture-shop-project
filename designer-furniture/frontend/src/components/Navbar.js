@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "../css/styles.css";
 
 const Navbar = ({ scrollToAbout, scrollToContact }) => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -27,19 +27,18 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
   }, []);
 
   // Handle logout
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   window.location.reload();
+  // };
 
   // Get user's initials if no profile picture
-  const getInitials = (name) => {
-    return name
-      ? name
-          .split(" ")
-          .map((word) => word[0].toUpperCase())
-          .join("")
-      : "U";
+  const getInitials = (fullName) => {
+    if (!fullName) return "U"; // ✅ Default to "U" if name is missing
+    const words = fullName.trim().split(" ");
+    return words.length > 1
+      ? words[0][0].toUpperCase() + words[1][0].toUpperCase() // ✅ "John Doe" → "JD"
+      : words[0][0].toUpperCase(); // ✅ "John" → "J"
   };
 
   return (
@@ -48,10 +47,10 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
         <div className="nav-wrapper">
           {/* Left Side: Logo */}
           <div className="logo">
-            <Link to="/">
+            <NavLink to="/">
               <img src="/images/logo.jpg" alt="Logo" />
               <span>EliteFurnish</span>
-            </Link>
+            </NavLink>
           </div>
 
           {/* ✅ Right Side: Menu Items */}
@@ -64,49 +63,49 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
                 <button onClick={scrollToContact}>Contact</button>
               </li>
               <li>
-                <button onClick={() => window.location.href = '/search'}>Products</button>
+                <NavLink to={'/search'}>Products</NavLink>
               </li>
               {user && user.isAdmin && (
                 <li>
-                  <button to="/admin">Admin Panel</button>
+                  <NavLink to="/admin">Admin Panel</NavLink>
                 </li>
               )}
 
-{user ? (
-  <li className={`profile-menu ${dropdownOpen ? "open" : ""}`} ref={dropdownRef}>
-    <div className="profile-dropdown" onClick={toggleDropdown}>
-      {user.profilePicture ? (
-        <img
-          src={user.profilePicture}
-          alt="Profile"
-          className="profile-pic"
-        />
-      ) : (
-        <div className="profile-initials">{getInitials(user.name)}</div>
-      )}
-    </div>
+              {user ? (
+                <li className={`profile-menu ${dropdownOpen ? "open" : ""}`} ref={dropdownRef}>
+                  <div className="profile-dropdown" onClick={toggleDropdown}>
+                    {user.profilePicture ? (
+                      <img
+                        src={user.profilePicture}
+                        alt="Profile"
+                        className="profile-pic"
+                      />
+                    ) : (
+                      <div className="profile-initials">{getInitials(user.name)}</div>
+                    )}
+                  </div>
 
-    {/* Dropdown Menu */}
-    <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
-      {/* Use Link for Profile Navigation */}
-      <li>
-        <Link to="/profile">Profile</Link>
-      </li>
-      <li>
-        <button onClick={handleLogout}>Logout</button>
-      </li>
-    </ul>
-  </li>
-) : (
-  <>
-    <li className="navbar-login">
-      <Link to="/login">Login</Link>
-    </li>
-    <li className="navbar-register">
-      <Link to="/register">Register</Link>
-    </li>
-  </>
-)}
+                  {/* Dropdown Menu */}
+                  <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
+                    {/* Use NavLink for Profile Navigation */}
+                    <li>
+                      <NavLink to="/profile">Profile</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/login" onClick={logout}>Logout</NavLink>
+                    </li>
+                  </ul>
+                </li>
+              ) : (
+                <>
+                  <li className="navbar-login">
+                    <NavLink to="/login">Login</NavLink>
+                  </li>
+                  <li className="navbar-register">
+                    <NavLink to="/register">Register</NavLink>
+                  </li>
+                </>
+              )}
 
             </ul>
           </div>

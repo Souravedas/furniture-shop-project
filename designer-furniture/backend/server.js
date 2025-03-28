@@ -7,13 +7,12 @@ const furnitureRoutes = require("./routes/furnitureRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
 
-
 dotenv.config();
 
 const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use("/api/auth", authRoutes);
 app.use("/api/furniture", furnitureRoutes);
 app.use("/api/profile", profileRoutes);

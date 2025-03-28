@@ -1,15 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AuthContext from "../context/AuthContext";
+// import AuthContext from "../context/AuthContext";
 import "../css/styles.css";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
-  const { logout } = useContext(AuthContext);
+  // const {logout } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profilePicture, setProfilePicture] = useState(null); // default value as null
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login"); // ✅ Redirect if no token (user not logged in)
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,17 +38,20 @@ const ProfilePage = () => {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(
+      const response = await axios.put(
         "/api/profile",
-        { name, email, profilePicture },
+        { name, email, profilePicture }, // ✅ Now sending the updated profile picture
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
+
       alert("Profile updated!");
+      setProfilePicture(response.data.user.profilePicture); // ✅ Update state with the new image
       window.location.reload();
     } catch (error) {
       alert("Error updating profile.");
     }
   };
+
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -69,14 +80,29 @@ const ProfilePage = () => {
     }
   };
 
+  // Get user's initials if no profile picture
+  const getInitials = (fullName) => {
+    if (!fullName) return "U"; // ✅ Default to "U" if name is missing
+    const words = fullName.trim().split(" ");
+    return words.length > 1
+      ? words[0][0].toUpperCase() + words[1][0].toUpperCase() // ✅ "John Doe" → "JD"
+      : words[0][0].toUpperCase(); // ✅ "John" → "J"
+  };
+
+
   return (
     <div className="profile-container">
       <div className="profile-card">
         {/* Profile Picture with Base64 Handling */}
         <div className="profile-image">
-          <img src={profilePicture || "https://via.placeholder.com/150"} alt="Profile" />
+          {profilePicture ? (
+            <img src={profilePicture} alt="Profile" className="profile-pic" />
+          ) : (
+            <div className="profile-initial">{getInitials(name)}</div> // ✅ Use `name` instead of `user.name`
+          )}
           <input type="file" onChange={handleFileChange} />
         </div>
+
 
         {/* Profile Info */}
         <h2>{name}</h2>
@@ -108,9 +134,6 @@ const ProfilePage = () => {
           />
           <button type="submit">Change Password</button>
         </form>
-
-        {/* Logout Button */}
-        <button onClick={logout} className="logout-btn">Logout</button>
       </div>
     </div>
   );

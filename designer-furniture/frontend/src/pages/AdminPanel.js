@@ -15,6 +15,7 @@ const AdminPanel = () => {
     image: "",
     link: "",
   });
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     fetchFurniture();
@@ -36,14 +37,40 @@ const AdminPanel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/furniture", newFurniture, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      alert("Furniture added successfully!");
+      if (editingId) {
+        await axios.put(`/api/furniture/${editingId}`, newFurniture, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+      } else {
+        await axios.post("/api/furniture", newFurniture, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+      }
+
+      alert(editingId ? "Furniture updated successfully!" : "Furniture added successfully!");
       setNewFurniture({ name: "", designer: "", category: "", description: "", price: "", image: "", link: "" });
+      setEditingId(null);
       fetchFurniture();
     } catch (error) {
-      alert("Error adding furniture.");
+      alert("Error adding/updating furniture.");
+    }
+  };
+
+  const handleEdit = (item) => {
+    setNewFurniture(item);
+    setEditingId(item._id);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this furniture?")) {
+      try {
+        await axios.delete(`/api/furniture/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        fetchFurniture();
+      } catch (error) {
+        alert("Error deleting furniture.");
+      }
     }
   };
 
@@ -52,9 +79,9 @@ const AdminPanel = () => {
       <h2 className="admin-title">Admin Panel</h2>
       {user && user.isAdmin ? (
         <div>
-          {/* ✅ Modern Add New Furniture Section */}
+          {/* ✅ Add New Furniture Form */}
           <div className="admin-form-container">
-            <h3>Add New Furniture</h3>
+            <h3>{editingId ? "Edit Furniture" : "Add New Furniture"}</h3>
             <form onSubmit={handleSubmit} className="admin-form">
               <div className="form-group">
                 <input type="text" name="name" placeholder="Furniture Name" value={newFurniture.name} onChange={handleChange} required />
@@ -68,7 +95,7 @@ const AdminPanel = () => {
                   <option value="table">Table</option>
                   <option value="chair">Chair</option>
                   <option value="cushion">Cushion</option>
-                  <option value="living table">Living Table</option>
+                  <option value="dining table">Dining Table</option>
                 </select>
                 <input type="number" name="price" placeholder="Price ($)" value={newFurniture.price} onChange={handleChange} required />
               </div>
@@ -80,26 +107,32 @@ const AdminPanel = () => {
                 <input type="text" name="link" placeholder="Product Link" value={newFurniture.link} onChange={handleChange} required />
               </div>
 
-              <button type="submit" className="add-furniture-btn">Add Furniture</button>
+              <button type="submit" className="add-furniture-btn">{editingId ? "Update Furniture" : "Add Furniture"}</button>
             </form>
           </div>
 
-          {/* ✅ Beautiful Furniture Display Section */}
+          {/* ✅ Restored Furniture Display Section */}
           <h3 className="admin-section-title">Existing Furniture</h3>
           <div className="admin-furniture-grid">
-            {furniture.map((item) => (
-              <div key={item._id} className="admin-furniture-card">
-                <div className="image-wrapper">
-                  <img src={item.image} alt={item.name} />
+            {furniture.length > 0 ? (
+              furniture.map((item) => (
+                <div key={item._id} className="admin-furniture-card">
+                  <div className="image-wrapper">
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className="furniture-info">
+                    <h3>{item.name}</h3>
+                    <p><strong>Designer:</strong> {item.designer}</p>
+                    <p><strong>Category:</strong> {item.category}</p>
+                    <p><strong>Price:</strong> ${item.price}</p>
+                    <button onClick={() => handleEdit(item)} className="edit-btn">Edit</button>
+                    <button onClick={() => handleDelete(item._id)} className="delete-btn">Delete</button>
+                  </div>
                 </div>
-                <div className="furniture-info">
-                  <h3>{item.name}</h3>
-                  <p><strong>Designer:</strong> {item.designer}</p>
-                  <p><strong>Category:</strong> {item.category}</p>
-                  <p><strong>Price:</strong> ${item.price}</p>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No furniture available.</p>
+            )}
           </div>
         </div>
       ) : (

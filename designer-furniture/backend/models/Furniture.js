@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const furnitureSchema = new mongoose.Schema({
   name: { type: String, required: true },
   designer: { type: String, required: true },
-  category: { type: String, required: true, enum: ["sofa", "table", "chair", "cushion", "living table"] },
+  category: { type: String, required: true, enum: ["sofa", "table", "chair", "cushion", "dining table"] },
   description: { type: String },
   price: { type: Number, required: true },
   image: { type: String, required: true },
