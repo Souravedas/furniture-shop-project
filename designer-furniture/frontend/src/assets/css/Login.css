@@ -1,0 +1,90 @@
+/* 🌟 Full Page Styling */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #F2EDD7; /* Beige background */
+  }
+  
+  /* 🌟 Login Card */
+  .login-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.8s ease-in-out;
+  }
+  
+  /* 🌟 Slide-in Animation */
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  /* 🌟 Title */
+  .login-title {
+    font-size: 1.8rem;
+    color: #755139;
+    margin-bottom: 20px;
+  }
+  
+  /* 🌟 Input Group */
+  .login-input-group {
+    display: flex;
+    align-items: center;
+    background: rgba(117, 81, 57, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .login-input-group i {
+    color: #755139;
+    margin-right: 10px;
+  }
+  
+  .login-input-group input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 1rem;
+  }
+  
+  /* 🌟 Button */
+  .login-button {
+    background: #755139;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .login-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(117, 81, 57, 0.5);
+  }
+  
+  /* 🌟 Links */
+  .login-links {
+    margin-top: 15px;
+  }
+  
+  .login-links a {
+    color: #755139;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .login-links a:hover {
+    text-decoration: underline;
+  }
+  

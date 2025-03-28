@@ -1,0 +1,125 @@
+/* ======= Admin Panel Styles ======= */
+.admin-panel {
+  padding: 40px;
+  background: #F2EDD7;
+  text-align: center;
+}
+
+.admin-title {
+  color: #755139;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+/* ======= Add New Furniture Form ======= */
+.admin-form-container {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin: 30px auto;
+  max-width: 600px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.admin-form h3 {
+  font-size: 22px;
+  color: #755139;
+  margin-bottom: 20px;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.admin-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+.add-furniture-btn {
+  background: #755139;
+  color: white;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.add-furniture-btn:hover {
+  background: #5a3f2a;
+}
+
+/* ======= Existing Furniture Display ======= */
+.admin-section-title {
+  font-size: 24px;
+  margin: 40px 0 20px;
+  color: #755139;
+}
+
+/* ======= Furniture Grid ======= */
+.admin-furniture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 10px;
+  justify-content: center;
+}
+
+/* ======= Individual Furniture Card ======= */
+.admin-furniture-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.furniture-info {
+  margin-top: 10px;
+}
+
+.furniture-info h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.furniture-info p {
+  font-size: 14px;
+  margin: 5px 0;
+}
