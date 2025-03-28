@@ -57,7 +57,7 @@
   display: inline-block;
 }
 
-.menu ul li a {
+.menu ul li .active {
   color: rgb(233, 233, 233);
   font-weight: 700;
   font-size: 17px;
@@ -65,8 +65,8 @@
   transition: color 0.3s ease-in-out;
 }
 
-.menu ul li a:hover {
-  color: #F2EDD7;
+.menu ul li .active:hover {
+  color: black;
 }
 
 /* Buttons */
@@ -116,39 +116,35 @@
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  top: 50px;
+  top: 100%;
   right: 0;
-  background-color: #6d4c41; /* Darker, elegant brown */
-  border-radius: 10px; /* More rounded corners */
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Softer, more refined shadow */
-  list-style: none;
-  padding: 15px 0;
-  min-width: 180px;
-  z-index: 10;
+  background: #755139;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s; /* Smooth fade-in/out and slide-up */
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
 }
 
 .dropdown-menu.show {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease; /* When dropdown is open */
+  transition: opacity 0.3s ease, transform 0.3s ease; 
 }
 
 .dropdown-menu li {
   padding: 12px 20px;
   text-align: left;
   font-size: 16px;
-  color: #F2EDD7; /* Light color for text */
+  color: #F2EDD7; 
   font-weight: 500;
   transition: background-color 0.3s ease;
 }
 
 .dropdown-menu li a {
-  color: inherit; /* Inherit the color from the li */
+  color: inherit;
   text-decoration: none;
   display: block;
   padding: 5px 0;
@@ -157,7 +153,7 @@
 .dropdown-menu li button {
   background: none;
   border: none;
-  color: inherit; /* Inherit color from li */
+  color: inherit;
   cursor: pointer;
   font-size: 16px;
   padding: 5px 0;
@@ -165,13 +161,13 @@
 }
 
 .dropdown-menu li:hover {
-  background-color: #D4A37B; /* Subtle light brown hover effect */
+  background-color: #D4A37B; 
   transition: background-color 0.3s ease;
 }
 
 .dropdown-menu li a:hover,
 .dropdown-menu li button:hover {
-  color: #6d4c41; /* Darker text color when hovering */
-  padding-left: 10px; /* Add slight padding on the left for hover effect */
+  color: #6d4c41;
+  padding-left: 10px; 
 }
 

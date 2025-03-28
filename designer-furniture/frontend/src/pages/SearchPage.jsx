@@ -66,7 +66,7 @@ const SearchPage = () => {
       </select>
 
       {/* Furniture Grid */}
-      <div className="product-grid">
+      <div className="product-grid" style={{ justifyContent: furniture.length < 3 ? "center" : "flex-start" }}>
         {furniture.length > 0 ? (
           furniture.map((item) => (
             <div key={item._id} className="product-card">

@@ -11,19 +11,19 @@ const Footer = ({ scrollToAbout, scrollToContact }) => {
 				<div className="footer-content">
 
 					{/* Left Side - Quick links */}
-					<div className="footer-NavLinks">
+					<div className="footer-links">
 						<h3>Quick links</h3>
 						<ul>
 							<li>
-								<button onClick={scrollToAbout}>About</button>
+								<button onClick={scrollToAbout} className='footer-btn'>About</button>
 							</li>
 							<li>
-								<button onClick={scrollToContact}>Contact</button>
+								<button onClick={scrollToContact} className='footer-btn'>Contact</button>
 							</li>
-							<li><NavLink to="/search">Products</NavLink></li>
+							<li><NavLink to="/search" className='footer-btn'>Products</NavLink></li>
 
-							{!user && <li><NavLink to="/login">Login</NavLink></li>}
-							{user && <li><NavLink to="/profile">Profile</NavLink></li>}
+							{!user && <li><NavLink to="/login" className='footer-btn'>Login</NavLink></li>}
+							{user && <li><NavLink to="/profile" className='footer-btn'>Profile</NavLink></li>}
 						</ul>
 					</div>
 

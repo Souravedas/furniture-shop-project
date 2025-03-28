@@ -57,13 +57,17 @@
   margin: 5px 0;
 }
 
-.footer-links ul li a {
+.footer-links ul li .footer-btn {
   color: #ddd;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.footer-links ul li a:hover {
+.footer-links ul li .footer-btn:hover {
   color: #F2EDD7;
 }
 

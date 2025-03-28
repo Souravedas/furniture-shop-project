@@ -87,6 +87,7 @@
 
 /* ======= Individual Furniture Card ======= */
 .admin-furniture-card {
+  
   background: white;
   padding: 15px;
   border-radius: 10px;
@@ -122,4 +123,23 @@
 .furniture-info p {
   font-size: 14px;
   margin: 5px 0;
+}
+
+.admin-furniture-card button {
+  background: #755139;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.admin-furniture-card .edit-btn {
+  margin-right: 15px;
+}
+
+.admin-furniture-card button:hover {
+  background: #5a3f2a;
 }
