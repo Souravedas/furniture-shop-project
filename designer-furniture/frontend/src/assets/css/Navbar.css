@@ -90,6 +90,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  z-index: 999;
 }
 
 .profile-pic {
@@ -125,6 +126,7 @@
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .dropdown-menu.show {
@@ -132,6 +134,7 @@
   visibility: visible;
   transform: translateY(0);
   transition: opacity 0.3s ease, transform 0.3s ease; 
+  border-radius: 5px;
 }
 
 .dropdown-menu li {
@@ -163,6 +166,7 @@
 .dropdown-menu li:hover {
   background-color: #D4A37B; 
   transition: background-color 0.3s ease;
+  border-radius: 5px;
 }
 
 .dropdown-menu li a:hover,
