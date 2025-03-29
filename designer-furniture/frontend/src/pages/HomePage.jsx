@@ -9,48 +9,48 @@ import ProductSection from "../components/ProductSection";
 const HomePage = () => {
 	const [images, setImages] = useState([]);
 	const location = useLocation();
-  
+
 	// ✅ Get refs from MainLayout
 	const { aboutRef, contactRef } = useOutletContext();
-  
+
 	useEffect(() => {
-	  const fetchSliderImages = async () => {
-		try {
-		  const response = await axios.get("/api/furniture");
-		  setImages(response.data.map((item) => item.image).slice(0, 5));
-		} catch (error) {
-		  console.error("Error fetching images:", error);
-		}
-	  };
-  
-	  fetchSliderImages();
+		const fetchSliderImages = async () => {
+			try {
+				const response = await axios.get("/api/furniture");
+				setImages(response.data.map((item) => item.image).slice(0, 5));
+			} catch (error) {
+				console.error("Error fetching images:", error);
+			}
+		};
+
+		fetchSliderImages();
 	}, []);
-  
+
 	// ✅ Scroll when coming from another page
 	useEffect(() => {
 		if (location.state?.scrollTo === "about") {
-		  aboutRef.current?.scrollIntoView({ behavior: "smooth" });
+			aboutRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
 		if (location.state?.scrollTo === "contact") {
-		  contactRef.current?.scrollIntoView({ behavior: "smooth" });
+			contactRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
-	  }, [location]);
+	}, [location]);
 
-  return (
-    <div>
-      {/* Image Slider */}
-      <ImageSlider images={images} />
+	return (
+		<div>
+			{/* Image Slider */}
+			<ImageSlider images={images} />
 
-      {/* About Section */}
-      <AboutSection aboutRef={aboutRef} />
+			{/* About Section */}
+			<AboutSection aboutRef={aboutRef} />
 
-      {/* Product Section */}
-      <ProductSection />
+			{/* Product Section */}
+			<ProductSection />
 
-      {/* Contact Section */}
-      <ContactSection contactRef={contactRef} />
-    </div>
-  );
+			{/* Contact Section */}
+			<ContactSection contactRef={contactRef} />
+		</div>
+	);
 };
 
 export default HomePage;
