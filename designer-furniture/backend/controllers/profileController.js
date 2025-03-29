@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const cloudinary = require("../config/cloudinary");
 
 // Get user profile
 exports.getProfile = async (req, res) => {
@@ -20,7 +21,7 @@ exports.updateProfile = async (req, res) => {
     if (user) {
       user.name = name || user.name;
       user.email = email || user.email;
-      user.profilePicture = profilePicture || user.profilePicture; // ✅ Ensure profile picture gets updated
+      user.profilePicture = profilePicture || user.profilePicture; // Save Cloudinary URL
       await user.save();
       res.json({ message: "Profile updated successfully", user });
     } else {
@@ -31,6 +32,34 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
+
+// Upload profile picture
+exports.uploadProfilePicture = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+
+    // Upload image to Cloudinary
+    cloudinary.uploader.upload_stream(
+      { folder: "profile_pictures", width: 500, height: 500, crop: "fill" },
+      async (error, result) => {
+        if (error) return res.status(500).json({ message: error.message });
+
+        // Save image URL in MongoDB
+        const user = await User.findByIdAndUpdate(
+          userId,
+          { profilePicture: result.secure_url },
+          { new: true }
+        );
+
+        res.json({ message: "Profile picture updated", user });
+      }
+    ).end(req.file.buffer);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // Change password
 exports.changePassword = async (req, res) => {
@@ -70,5 +99,3 @@ exports.updateLastSearch = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-

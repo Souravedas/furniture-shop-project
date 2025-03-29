@@ -1,17 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 const Navbar = ({ scrollToAbout, scrollToContact }) => {
 
-	const { user } = useContext(AuthContext)
+	const { user, setUser } = useContext(AuthContext)
 	const [dropdownOpen, setDropdownOpen] = useState(false)
 	const dropdownRef = useRef(null)
-
-	// Toggle dropdown
-	const toggleDropdown = () => {
-		setDropdownOpen((prev) => !prev)
-	};
+	const navigate = useNavigate()
 
 	// Close dropdown when clicking outside
 	useEffect(() => {
@@ -26,10 +22,16 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
 		}
 	}, [])
 
+	useEffect(() => {
+
+	}, [user])
+
 	// Handle logout
 	const handleLogout = () => {
 		localStorage.clear()
 		window.location.reload()
+		setUser(null)
+		navigate("/login")
 	};
 
 	// Get user's initials if no profile picture
@@ -72,19 +74,25 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
 							)}
 
 							{user && user.name ? (
-								<li
-									className={`profile-menu ${dropdownOpen ? "open" : ""}`}
-									ref={dropdownRef}
-									onMouseEnter={() => setDropdownOpen(true)}
-									onMouseLeave={() => setDropdownOpen(false)}
-								>
-									<div className="profile-dropdown">
-										{user.profilePicture ? (
-											<img src={user.profilePicture} alt="Profile" className="profile-pic" />
-										) : (
-											<div className="profile-initials">{getInitials(user.name)}</div>
-										)}
-									</div>
+								<li className={`profile-menu ${dropdownOpen ? "open" : ""}`}
+								ref={dropdownRef}
+								onMouseEnter={() => setDropdownOpen(true)}
+								onMouseLeave={() => setDropdownOpen(false)}
+							>
+								<div className="profile-dropdown">
+									{user.profilePicture ? (
+										<img 
+										src={user.profilePicture} 
+										alt="Profile" 
+										className="logo-profile-pic"
+										onError={(e) => e.target.src = "/default-avatar.png"} 
+									  />
+									  
+									) : (
+										<div className="profile-initials">{getInitials(user.name)}</div>
+									)}
+								</div>
+							
 
 									{/* Dropdown Menu */}
 									<ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>

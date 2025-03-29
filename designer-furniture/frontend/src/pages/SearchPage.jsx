@@ -30,6 +30,13 @@ const SearchPage = () => {
 		fetchFurniture();
 	}, [category]);
 
+	useEffect(() => {
+		if (category !== "all") {
+			localStorage.setItem("lastSearchedCategory", category);
+		}
+	}, [category]);
+	
+
 	// Handle furniture selection for comparison (Persistent)
 	const handleSelect = (item) => {
 		if (selectedItems.length < 2) {

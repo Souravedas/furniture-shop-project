@@ -45,6 +45,24 @@
 	object-fit: cover;
 }
 
+/* Profile Initials */
+.profile-initial {
+	width: 120px; /* Same size as the profile picture */
+	height: 120px; /* Same size as the profile picture */
+	border-radius: 50%;
+	border: solid 4px #755139;
+	background-color: #F2EDD7; /* Same color as the profile picture border */
+	color: #755139; /* Text color */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50px; /* Bigger font size */
+	font-weight: bold; /* Bold text */
+	text-transform: uppercase; /* Uppercase initials */
+	margin: 0 auto; /* Centered in the sidebar */
+}
+
+
 .upload-btn {
 	display: block;
 	margin-top: 10px;

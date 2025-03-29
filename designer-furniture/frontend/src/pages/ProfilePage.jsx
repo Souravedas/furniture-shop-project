@@ -1,85 +1,140 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext, use } from "react"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/AuthContext"
 
 const ProfilePage = () => {
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [profilePicture, setProfilePicture] = useState(null);
-	const [oldPassword, setOldPassword] = useState("");
-	const [newPassword, setNewPassword] = useState("");
-	const navigate = useNavigate();
+	const [name, setName] = useState("")
+	const [email, setEmail] = useState("")
+	const [profilePicture, setProfilePicture] = useState(null)
+	const [oldPassword, setOldPassword] = useState("")
+	const [newPassword, setNewPassword] = useState("")
+	const navigate = useNavigate()
+	const { setUser, user } = useContext(AuthContext)
 
 	useEffect(() => {
 		if (!localStorage.getItem("token")) {
-			navigate("/login");
+			navigate("/login")
 		}
-	}, [navigate]);
+	}, [navigate])
 
+	// Ensure user is updated after profile fetch
 	useEffect(() => {
 		const fetchProfile = async () => {
 			try {
 				const response = await axios.get("/api/profile", {
 					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
 				});
+
 				setName(response.data.name);
 				setEmail(response.data.email);
-				setProfilePicture(response.data.profilePicture || "https://via.placeholder.com/150");
+				setProfilePicture(response.data.profilePicture || null);
+
+				// Update AuthContext state
+				setUser(response.data); // Sync with global state
 			} catch (error) {
 				console.error("Error fetching profile:", error);
 			}
 		};
 		fetchProfile();
-	}, []);
+	}, [setUser]); // Only trigger if `setUser` changes
 
-	const handleFileChange = (e) => {
-		const file = e.target.files[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setProfilePicture(reader.result);
-			};
-			reader.readAsDataURL(file);
+
+	// Upload image to Cloudinary
+	const uploadImageToCloudinary = async (file) => {
+		const formData = new FormData()
+		formData.append("file", file)
+		formData.append("upload_preset", "furniture-shop")
+		formData.append("cloud_name", "doxbal3s7")
+
+		try {
+			const response = await axios.post("https://api.cloudinary.com/v1_1/doxbal3s7/image/upload", formData)
+			return response.data.secure_url
+		} catch (error) {
+			console.error("Error uploading image:", error)
+			alert("Failed to upload image. Try again.")
+			return null
 		}
-	};
+	}
 
 	const handleUpdateProfile = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.put(
+			const response = await axios.put(
 				"/api/profile",
 				{ name, email, profilePicture },
 				{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
 			);
+
+			if (response.status !== 200 || !response.data) {
+				throw new Error("Invalid response from server");
+			}
+
+			// ✅ Update user state in AuthContext
+			const updatedUser = { ...user, name, email, profilePicture };
+			localStorage.setItem("user", JSON.stringify(updatedUser));
+			setUser(updatedUser); // ✅ This triggers a re-render in Navbar
+
 			alert("Profile updated!");
-			window.location.reload();
 		} catch (error) {
-			alert("Error updating profile.");
+			console.error("Error updating profile:", error);
+			alert(error.response?.data?.message || "Something went wrong. Please try again.");
 		}
 	};
 
+
+
+	const handleFileChange = async (e) => {
+		const file = e.target.files[0]
+		if (file) {
+			const imageUrl = await uploadImageToCloudinary(file)
+			if (imageUrl) {
+				setProfilePicture(imageUrl)
+			}
+		}
+	}
+
 	const handleChangePassword = async (e) => {
-		e.preventDefault();
+		e.preventDefault()
 		try {
 			await axios.put(
 				"/api/profile/change-password",
 				{ oldPassword, newPassword },
 				{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-			);
-			alert("Password changed successfully!");
-			setOldPassword("");
-			setNewPassword("");
+			)
+			alert("Password changed successfully!")
+			setOldPassword("")
+			setNewPassword("")
 		} catch (error) {
-			alert("Error changing password.");
+			alert("Error changing password.")
 		}
-	};
+	}
+
+	// Get user's initials if no profile picture
+	const getInitials = (fullName) => {
+		if (!fullName) return ""
+		const words = fullName.trim().split(" ")
+		return words.length > 1
+			? words[0][0].toUpperCase() + words[1][0].toUpperCase()
+			: words[0][0].toUpperCase()
+	}
 
 	return (
 		<div className="profile-container">
 			<div className="profile-card">
 				{/* Sidebar Profile Section */}
 				<div className="profile-sidebar">
-					<img src={profilePicture} alt="Profile" className="profile-pic" />
+					{profilePicture ? (
+						<img
+							src={profilePicture}
+							alt="Profile"
+							className="profile-pic"
+							onError={(e) => e.target.src = "/default-avatar.png"}
+						/>
+					) : (
+						<div className="profile-initial">{getInitials(name)}</div>
+					)}
+
 					<h2>{name}</h2>
 					<p>{email}</p>
 					<label className="upload-btn">
@@ -112,7 +167,7 @@ const ProfilePage = () => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default ProfilePage;
+export default ProfilePage

@@ -16,15 +16,19 @@ const HomePage = () => {
 	useEffect(() => {
 		const fetchSliderImages = async () => {
 			try {
-				const response = await axios.get("/api/furniture");
-				setImages(response.data.map((item) => item.image).slice(0, 5));
+				const lastCategory = localStorage.getItem("lastSearchedCategory") || "all"; // ✅ Get stored category
+				const response = await axios.get(
+					lastCategory === "all" ? "/api/furniture" : `/api/furniture?category=${encodeURIComponent(lastCategory)}`
+				);
+				setImages(response.data.map((item) => item.image).slice(0, 5)); // ✅ Show only 5 images
 			} catch (error) {
 				console.error("Error fetching images:", error);
 			}
 		};
-
+	
 		fetchSliderImages();
 	}, []);
+	
 
 	// ✅ Scroll when coming from another page
 	useEffect(() => {

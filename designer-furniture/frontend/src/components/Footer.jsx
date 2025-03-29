@@ -47,7 +47,7 @@ const Footer = ({ scrollToAbout, scrollToContact }) => {
 								<i className="fa-brands fa-twitter"></i>
 							</a>
 							<a href="https://www.NavLinkedin.com" target="_blank" rel="noopener noreferrer">
-								<i class="fa-brands fa-linkedin-in"></i>
+								<i className="fa-brands fa-linkedin-in"></i>
 							</a>
 						</div>
 					</div>
