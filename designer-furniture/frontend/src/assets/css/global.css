@@ -99,6 +99,33 @@ a{
   padding: 0 10px;
 }
 
+.auth-container, .verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f4f4;
+}
+
+.auth-card, .verify-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.alert.success { background: #d4edda; color: #155724; }
+.alert.error { background: #f8d7da; color: #721c24; }
+
+
 /* screens larger than 768 */
 @media screen and (min-width: 768px) {
   .container {
@@ -127,5 +154,85 @@ a{
 
   .card-row .cards {
     width: 33%;
+  }
+}
+
+/* verify email success */
+.verify-success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Card Styling */
+.verify-success-card {
+  background: #fff;
+  padding: 30px;
+  width: 400px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Title Styling */
+.verify-success-card h2 {
+  color: #2a5298;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+/* Paragraph Styling */
+.verify-success-card p {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Login Button */
+.login-button {
+  display: inline-block;
+  background: #2a5298;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
+}
+
+.login-button:hover {
+  background: #1e3c72;
+}
+
+/* Celebration Animation */
+.celebration-animation {
+  font-size: 30px;
+  margin-top: 20px;
+  animation: bounce 1.5s infinite;
+}
+
+/* Fade In Effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bouncing Animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }

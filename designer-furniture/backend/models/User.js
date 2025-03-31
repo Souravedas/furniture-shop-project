@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,10 +8,11 @@ const userSchema = new mongoose.Schema(
     profilePicture: { type: String, default: "" },
     lastSearchCategory: { type: String },
     isAdmin: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
+    verificationToken: { type: String },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+const User = mongoose.model("user", userSchema);
+export default User;

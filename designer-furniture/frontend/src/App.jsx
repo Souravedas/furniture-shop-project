@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage"
 import AdminPanel from './pages/AdminPanel'
 import SearchPage from "./pages/SearchPage"
 import ForgotPassword from './pages/ForgotPassword'
+import VerifyEmailSuccess from './pages/VerifyEmailSuccess'
 
 // components
 import AuthCheck from './components/AuthCheck'
@@ -35,6 +36,7 @@ const App = () => {
 					</Route>
 				</Route>
 				<Route path="forgot-password" element={<ForgotPassword />} />
+				<Route path='verify-email-success' element={<VerifyEmailSuccess />} />
 			</Route>
 		</Routes>
 	)

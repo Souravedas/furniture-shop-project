@@ -1,7 +1,7 @@
-const Furniture = require("../models/Furniture");
+import Furniture from "../models/Furniture.js";
 
 // Get all furniture
-exports.getFurniture = async (req, res) => {
+export const getFurniture = async (req, res) => {
   try {
     const { category } = req.query;
     let furniture;
@@ -21,7 +21,7 @@ exports.getFurniture = async (req, res) => {
 
 
 // Add new furniture (Admin only)
-exports.addFurniture = async (req, res) => {
+export const addFurniture = async (req, res) => {
   try {
     const { name, designer, category, description, price, image, link } = req.body;
 
@@ -35,7 +35,7 @@ exports.addFurniture = async (req, res) => {
 };
 
 // Update furniture (Admin only)
-exports.updateFurniture = async (req, res) => {
+export const updateFurniture = async (req, res) => {
   try {
     const { name, designer, category, description, price, image, link } = req.body;
     const { id } = req.params; // ✅ Get furniture ID from URL
@@ -64,7 +64,7 @@ exports.updateFurniture = async (req, res) => {
 };
 
 // Delete furniture (Admin only)
-exports.deleteFurniture = async (req, res) => {
+export const deleteFurniture = async (req, res) => {
   try {
     const { id } = req.params; // ✅ Get furniture ID from URL
 

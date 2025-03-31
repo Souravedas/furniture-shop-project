@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate, } from "react-router-dom"
 
 const Navbar = ({ scrollToAbout, scrollToContact }) => {
 
@@ -31,6 +31,7 @@ const Navbar = ({ scrollToAbout, scrollToContact }) => {
 		localStorage.clear()
 		window.location.reload()
 		setUser(null)
+		setMessage({ type: "success", text: "Logged out successfully!" });
 		navigate("/login")
 	};
 

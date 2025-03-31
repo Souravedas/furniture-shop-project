@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-const protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   try {
     let token = req.headers.authorization?.split(" ")[1];
 
@@ -23,7 +23,7 @@ const protect = async (req, res, next) => {
 };
 
 // ✅ Add the missing `admin` middleware
-const admin = (req, res, next) => {
+export const admin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
   } else {
@@ -31,4 +31,3 @@ const admin = (req, res, next) => {
   }
 };
 
-module.exports = { protect, admin };

@@ -34,11 +34,14 @@ const MainLayout = () => {
     const hideFooter =
         location.pathname === "/login" ||
         location.pathname === "/register" ||
-        location.pathname === "/forgot-password"
+        location.pathname === "/forgot-password" ||
+        location.pathname === "/verify-email-success"
+
+    const hideNavbar = location.pathname === "/verify-email-success"
 
     return (
         <>
-            <Navbar scrollToAbout={scrollToAbout} scrollToContact={scrollToContact} />
+           {!hideNavbar && <Navbar scrollToAbout={scrollToAbout} scrollToContact={scrollToContact} />}
             <Outlet context={{ aboutRef, contactRef }} />
             {!hideFooter && <Footer scrollToAbout={scrollToAbout} scrollToContact={scrollToContact} />}
         </>

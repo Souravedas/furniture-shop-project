@@ -1,11 +1,11 @@
-const User = require("../models/user");
-const sendEmail = require("../helpers/emailHelper");
-const bcrypt = require("bcryptjs");
+import User from "../models/User.js";
+import sendEmail from "../helpers/emailHelper.js";
+import bcrypt from "bcryptjs";
 
 const otpStorage = {}; // Temporary storage for OTPs
 
 // Send OTP Code to User Email
-exports.forgotPassword = async (req, res) => {
+export const forgotPassword = async (req, res) => {
     try {
       const { email } = req.body;
       console.log("Received forgot password request for email:", email); // ✅ Debugging log
@@ -32,7 +32,7 @@ exports.forgotPassword = async (req, res) => {
   
 
 // Verify OTP and Reset Password
-exports.resetPassword = async (req, res) => {
+export const resetPassword = async (req, res) => {
   const { email, otp, newPassword } = req.body;
 
   if (otpStorage[email] !== otp) {

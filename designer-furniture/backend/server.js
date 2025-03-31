@@ -1,11 +1,11 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const authRoutes = require("./routes/authRoutes");
-const furnitureRoutes = require("./routes/furnitureRoutes");
-const profileRoutes = require("./routes/profileRoutes");
-const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
+import furnitureRoutes from "./routes/furnitureRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
+import forgotPasswordRoutes from "./routes/forgotPasswordRoutes.js";
 
 dotenv.config();
 
@@ -27,5 +27,5 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5123;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

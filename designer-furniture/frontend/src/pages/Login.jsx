@@ -7,19 +7,24 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 
 	const navigate = useNavigate();
-	const { login } = useContext(AuthContext);
+	const { login, message, setMessage } = useContext(AuthContext);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let response = await login(email, password);
 		if (!response) return;
-		navigate("/");
+
+		setTimeout(() => {
+			setMessage({ type: "", text: "" });
+			navigate("/");
+		}, 1500);
 	};
 
 	return (
 		<div className="login-container">
 			<div className="login-card">
 				<h2 className="login-title">Login</h2>
+				{message.text && <p className={`alert ${message.type}`}>{message.text}</p>}
 				<form onSubmit={handleSubmit}>
 					<div className="login-input-group">
 						<i className="fa-solid fa-envelope"></i>
@@ -50,7 +55,7 @@ const Login = () => {
 					<NavLink to="/forgot-password">Forgot Password?</NavLink>
 				</p>
 				<p className="login-links">
-					Don't have an account? <NavLink to="/register">Register</NavLink>
+					New to EliteFurnish? <NavLink to="/register">Register</NavLink>
 				</p>
 			</div>
 		</div>

@@ -1,9 +1,9 @@
-const User = require("../models/user");
-const bcrypt = require("bcryptjs");
-const cloudinary = require("../config/cloudinary");
+import User from "../models/User.js";
+import bcrypt from "bcryptjs";
+import cloudinary from "cloudinary";
 
 // Get user profile
-exports.getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
@@ -13,7 +13,7 @@ exports.getProfile = async (req, res) => {
 };
 
 // Update user profile
-exports.updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
   try {
     const { name, email, profilePicture } = req.body;
     const user = await User.findById(req.user.id);
@@ -34,7 +34,7 @@ exports.updateProfile = async (req, res) => {
 
 
 // Upload profile picture
-exports.uploadProfilePicture = async (req, res) => {
+export const uploadProfilePicture = async (req, res) => {
   try {
     const userId = req.user.id;
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
@@ -62,7 +62,7 @@ exports.uploadProfilePicture = async (req, res) => {
 };
 
 // Change password
-exports.changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
   try {
     const { oldPassword, newPassword } = req.body;
     const user = await User.findById(req.user.id);
@@ -83,7 +83,7 @@ exports.changePassword = async (req, res) => {
 };
 
 // Update last search
-exports.updateLastSearch = async (req, res) => {
+export const updateLastSearch = async (req, res) => {
   try {
     const { lastSearchCategory } = req.body;
     const user = await User.findById(req.user.id);
