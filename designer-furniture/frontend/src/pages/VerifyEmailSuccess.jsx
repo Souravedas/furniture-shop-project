@@ -1,5 +1,5 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 const VerifyEmailSuccess = () => {
 
@@ -24,7 +24,7 @@ const VerifyEmailSuccess = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VerifyEmailSuccess;
+export default VerifyEmailSuccess

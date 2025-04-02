@@ -1,41 +1,45 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react"
+import axios from "axios"
 
 const ForgotPassword = () => {
-	const [email, setEmail] = useState("");
-	const [otp, setOtp] = useState("");
-	const [newPassword, setNewPassword] = useState("");
-	const [step, setStep] = useState(1);
-	const [message, setMessage] = useState("");
-	const [error, setError] = useState("");
+	const [email, setEmail] = useState("")
+	const [otp, setOtp] = useState("")
+	const [newPassword, setNewPassword] = useState("")
+	const [step, setStep] = useState(1)
+	const [message, setMessage] = useState("")
+	const [error, setError] = useState("")
 
 	const handleSendOtp = async () => {
-		setMessage("");
-		setError("");
+		setMessage("")
+		setError("")
 
 		try {
-			await axios.post("/api/auth/forgot-password", { email });
-			setMessage("✅ OTP sent to your email.");
-			setStep(2);
+			await axios.post("/api/auth/forgot-password", { email })
+			setMessage("✅ OTP sent to your email.")
+			setStep(2)
 		} catch (error) {
-			setError("⚠️ If this email exists, a reset link has been sent.");
+			setError("⚠️ If this email exists, a reset link has been sent.")
 		}
 	};
 
 	const handleResetPassword = async () => {
-		setMessage("");
-		setError("");
-
+		setMessage("")
+		setError("")
+	
+		// console.log("Sending reset request with:", { email, otp, newPassword })
+	
 		try {
-			await axios.post("/api/auth/reset-password", { email, otp: Number(otp), newPassword });
-			setMessage("✅ Password reset successfully!");
+			axios.post("http://localhost:5123/api/auth/reset-password", { email, otp: Number(otp), newPassword })
+			setMessage("✅ Password reset successfully!")
 			setTimeout(() => {
-				window.location.href = "/login";
-			}, 2000);
+				window.location.href = "/login"
+			}, 1000)
 		} catch (error) {
-			setError("⚠️ Invalid OTP or error resetting password.");
+			// console.error("Error resetting password:", error.response ? error.response.data : error.message)
+			setError(error.response?.data?.message || "⚠️ Invalid OTP or error resetting password.")
 		}
 	};
+	
 
 	return (
 		<div className="forgot-password-container">
@@ -88,7 +92,7 @@ const ForgotPassword = () => {
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default ForgotPassword;
+export default ForgotPassword

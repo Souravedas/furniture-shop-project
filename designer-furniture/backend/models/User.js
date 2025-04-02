@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema(
   {
@@ -10,9 +10,11 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     verified: { type: Boolean, default: false },
     verificationToken: { type: String },
+    resetOtp: { type: Number, default: null },
+    resetOtpExpires: {type: Date, default: null},
   },
   { timestamps: true }
-);
+)
 
-const User = mongoose.model("user", userSchema);
-export default User;
+const User = mongoose.model("user", userSchema)
+export default User

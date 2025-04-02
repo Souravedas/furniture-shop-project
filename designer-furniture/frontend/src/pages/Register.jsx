@@ -1,25 +1,25 @@
-import { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useContext, useState } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/AuthContext"
 
 const Register = () => {
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [name, setName] = useState("")
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
 
-	const navigate = useNavigate();
-	const { register, message, setMessage } = useContext(AuthContext);
+	const navigate = useNavigate()
+	const { register, message, setMessage } = useContext(AuthContext)
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const response = await register(name, email, password);
-		if (!response) return;
+		e.preventDefault()
+		const response = await register(name, email, password)
+		if (!response) return
 
 		setTimeout(() => {
-			setMessage({ type: "", text: "" });
-			navigate("/login");
-		}, 3000);
-	};
+			setMessage({ type: "", text: "" })
+			navigate("/login")
+		}, 1000)
+	}
 
 	return (
 		<div className="register-container">
@@ -70,7 +70,7 @@ const Register = () => {
 				</p>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Register;
+export default Register

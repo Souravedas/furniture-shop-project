@@ -24,20 +24,20 @@ const ProfilePage = () => {
 			try {
 				const response = await axios.get("/api/profile", {
 					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-				});
+				})
 
-				setName(response.data.name);
-				setEmail(response.data.email);
-				setProfilePicture(response.data.profilePicture || null);
+				setName(response.data.name)
+				setEmail(response.data.email)
+				setProfilePicture(response.data.profilePicture || null)
 
 				// Update AuthContext state
-				setUser(response.data); // Sync with global state
+				setUser(response.data)
 			} catch (error) {
-				console.error("Error fetching profile:", error);
+				console.error("Error fetching profile:", error)
 			}
-		};
-		fetchProfile();
-	}, [setUser]); // Only trigger if `setUser` changes
+		}
+		fetchProfile()
+	}, [setUser])
 
 
 	// Upload image to Cloudinary
@@ -58,30 +58,29 @@ const ProfilePage = () => {
 	}
 
 	const handleUpdateProfile = async (e) => {
-		e.preventDefault();
+		e.preventDefault()
 		try {
 			const response = await axios.put(
 				"/api/profile",
 				{ name, email, profilePicture },
 				{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-			);
+			)
 
 			if (response.status !== 200 || !response.data) {
-				throw new Error("Invalid response from server");
+				throw new Error("Invalid response from server")
 			}
 
 			// ✅ Update user state in AuthContext
-			const updatedUser = { ...user, name, email, profilePicture };
-			localStorage.setItem("user", JSON.stringify(updatedUser));
-			setUser(updatedUser); // ✅ This triggers a re-render in Navbar
+			const updatedUser = { ...user, name, email, profilePicture }
+			localStorage.setItem("user", JSON.stringify(updatedUser))
+			setUser(updatedUser)
 
 			alert("Profile updated!");
 		} catch (error) {
-			console.error("Error updating profile:", error);
-			alert(error.response?.data?.message || "Something went wrong. Please try again.");
+			console.error("Error updating profile:", error)
+			alert(error.response?.data?.message || "Something went wrong. Please try again.")
 		}
-	};
-
+	}
 
 
 	const handleFileChange = async (e) => {

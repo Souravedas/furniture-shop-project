@@ -1,24 +1,24 @@
-import { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useContext, useState } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/AuthContext"
 
 const Login = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
 
-	const navigate = useNavigate();
-	const { login, message, setMessage } = useContext(AuthContext);
+	const navigate = useNavigate()
+	const { login, message, setMessage } = useContext(AuthContext)
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		let response = await login(email, password);
-		if (!response) return;
+		e.preventDefault()
+		let response = await login(email, password)
+		if (!response) return
 
 		setTimeout(() => {
-			setMessage({ type: "", text: "" });
-			navigate("/");
-		}, 1500);
-	};
+			setMessage({ type: "", text: "" })
+			navigate("/")
+		}, 500)
+	}
 
 	return (
 		<div className="login-container">
@@ -59,7 +59,7 @@ const Login = () => {
 				</p>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Login;
+export default Login

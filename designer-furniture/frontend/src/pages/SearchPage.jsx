@@ -1,58 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
+import axios from "axios"
 
 const SearchPage = () => {
-	const [searchParams] = useSearchParams();
-	const initialCategory = searchParams.get("category") || "all";
-	const [category, setCategory] = useState(initialCategory);
-	const [furniture, setFurniture] = useState([]);
+	const [searchParams] = useSearchParams()
+	const initialCategory = searchParams.get("category") || "all"
+	const [category, setCategory] = useState(initialCategory)
+	const [furniture, setFurniture] = useState([])
 	const [selectedItems, setSelectedItems] = useState(
 		JSON.parse(localStorage.getItem("selectedItems")) || []
-	);
+	)
 
 	// Ensure category updates when clicking from Product Section
 	useEffect(() => {
 		const fetchFurniture = async () => {
 			try {
-				const formattedCategory = category.replace(/_/g, " ");
+				const formattedCategory = category.replace(/_/g, " ")
 
 				const response = await axios.get(
 					category === "all" ? "/api/furniture" : `/api/furniture?category=${encodeURIComponent(formattedCategory)}`
-				);
+				)
 
-				setFurniture(response.data);
+				setFurniture(response.data)
 			} catch (error) {
-				console.error("Error fetching furniture:", error);
+				console.error("Error fetching furniture:", error)
 			}
-		};
+		}
 
-		fetchFurniture();
-	}, [category]);
+		fetchFurniture()
+	}, [category])
 
 	useEffect(() => {
 		if (category !== "all") {
-			localStorage.setItem("lastSearchedCategory", category);
+			localStorage.setItem("lastSearchedCategory", category)
 		}
-	}, [category]);
+	}, [category])
 	
 
 	// Handle furniture selection for comparison (Persistent)
 	const handleSelect = (item) => {
 		if (selectedItems.length < 2) {
-			const updatedSelection = [...selectedItems, item];
-			setSelectedItems(updatedSelection);
-			localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
+			const updatedSelection = [...selectedItems, item]
+			setSelectedItems(updatedSelection)
+			localStorage.setItem("selectedItems", JSON.stringify(updatedSelection))
 		} else {
-			alert("You can only compare two items at a time!");
+			alert("You can only compare two items at a time!")
 		}
-	};
+	}
 
 	// Clear comparison (Also clear from local storage)
 	const clearComparison = () => {
-		setSelectedItems([]);
-		localStorage.removeItem("selectedItems");
-	};
+		setSelectedItems([])
+		localStorage.removeItem("selectedItems")
+	}
 
 	return (
 		<div className="search-container">
@@ -113,7 +113,7 @@ const SearchPage = () => {
 				</div>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default SearchPage;
+export default SearchPage

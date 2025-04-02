@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const furnitureSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -8,8 +8,8 @@ const furnitureSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   image: { type: String, required: true },
   link: { type: String, required: true } // Redirect link
-}, { timestamps: true });
+}, { timestamps: true })
 
-const Furniture = mongoose.model("Furniture", furnitureSchema);
-export default Furniture;
+const Furniture = mongoose.model("Furniture", furnitureSchema)
+export default Furniture
 

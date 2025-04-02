@@ -1,8 +1,8 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import { useNavigate } from "react-router-dom"
 
 const ProductSection = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     // ✅ Use image URLs instead of local file paths
     const products = [
@@ -11,11 +11,11 @@ const ProductSection = () => {
         { name: "chair", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCZv19hAtG8kNgmygu0EAl4kPXXpFu1Ol2DQ&s" },
         { name: "cushion", imageUrl: "https://images.pexels.com/photos/1239298/pexels-photo-1239298.jpeg?cs=srgb&dl=pexels-designecologist-1239298.jpg&fm=jpg" },
         { name: "dining table", imageUrl: "https://st.depositphotos.com/1987395/1929/i/450/depositphotos_19290839-stock-photo-interior-design-series-modern-colorful.jpg" }
-    ];
+    ]
 
     const formatCategoryName = (category) => {
-        return category.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-    };
+        return category.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
+    }
 
     return (
         <section className="product-section">
@@ -43,7 +43,7 @@ const ProductSection = () => {
                 </div>
             </div>
         </section>
-    );
-};
+    )
+}
 
-export default ProductSection;
+export default ProductSection
