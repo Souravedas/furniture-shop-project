@@ -6,7 +6,7 @@
 
 
 /* root variables */
-:root{
+:root {
   /* colors */
   --body-bg: rgb(255, 255, 255);
   --black: rgb(32, 28, 28);
@@ -23,54 +23,58 @@
 }
 
 
-html{
+html {
   font-size: 100%;
   scroll-behavior: smooth;
 }
-body{
+
+body {
   margin: 0;
   padding: 0;
   background: #F2EDD7;
   font-family: var(--font-1);
   overflow-x: hidden;
 }
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
 
 /* common designs */
-.my-section{
+.my-section {
   width: 100%;
   height: auto;
   display: block;
   padding: 80px 0;
 }
 
-.bg-gray{
+.bg-gray {
   background: var(--light-gray);
 }
 
 /* section title */
-.section-title{
+.section-title {
   width: 100%;
   height: auto;
   text-align: center;
 }
-.section-title p{
+
+.section-title p {
   color: var(--gray);
   font-size: 14px;
   font-weight: 800;
   text-transform: capitalize;
   padding-bottom: 10px;
 }
-.section-title h2{
+
+.section-title h2 {
   color: var(--black);
   font-size: 28px;
   font-weight: 700;
@@ -81,7 +85,7 @@ a{
 
 
 /* custom container */
-.container{
+.container {
   width: 100%;
   padding: 0 10px;
   margin: 0 auto;
@@ -99,7 +103,8 @@ a{
   padding: 0 10px;
 }
 
-.auth-container, .verify-container {
+.auth-container,
+.verify-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +112,8 @@ a{
   background: #f4f4f4;
 }
 
-.auth-card, .verify-card {
+.auth-card,
+.verify-card {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -122,8 +128,15 @@ a{
   text-align: center;
 }
 
-.alert.success { background: #d4edda; color: #155724; }
-.alert.error { background: #f8d7da; color: #721c24; }
+.alert.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.alert.error {
+  background: #f8d7da;
+  color: #721c24;
+}
 
 
 /* screens larger than 768 */
@@ -136,6 +149,7 @@ a{
     width: 50%;
   }
 }
+
 /* screens larger than 991px */
 @media screen and (min-width: 991px) {
   .container {
@@ -146,6 +160,7 @@ a{
     width: 33%;
   }
 }
+
 /* screens larger than 1200px */
 @media screen and (min-width: 1200px) {
   .container {
@@ -193,7 +208,7 @@ a{
 }
 
 /* Login Button */
-.login-button {
+.login-btn {
   display: inline-block;
   background: #2a5298;
   color: #fff;
@@ -204,7 +219,7 @@ a{
   transition: background 0.3s ease-in-out;
 }
 
-.login-button:hover {
+.login-btn:hover {
   background: #1e3c72;
 }
 
@@ -221,6 +236,7 @@ a{
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -229,9 +245,12 @@ a{
 
 /* Bouncing Animation */
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5px);
   }

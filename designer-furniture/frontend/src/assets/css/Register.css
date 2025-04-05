@@ -1,90 +1,96 @@
 /* 🌟 Full Page Styling */
 .register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #F2EDD7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #F2EDD7;
+}
+
+/* 🌟 Register Card */
+.register-card {
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* 🌟 Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
-  
-  /* 🌟 Register Card */
-  .register-card {
-    background: white;
-    border-radius: 15px;
-    padding: 40px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
-    animation: fadeIn 0.8s ease-in-out;
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  /* 🌟 Fade-in Animation */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  
-  /* 🌟 Title */
-  .register-title {
-    font-size: 1.8rem;
-    color: #755139;
-    margin-bottom: 20px;
-  }
-  
-  /* 🌟 Input */
-  .register-input-group {
-    display: flex;
-    align-items: center;
-    background: rgba(117, 81, 57, 0.1);
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
-  
-  .register-input-group i {
-    color: #755139;
-    margin-right: 10px;
-  }
-  
-  .register-input-group input {
-    border: none;
-    outline: none;
-    background: transparent;
-    width: 100%;
-    font-size: 1rem;
-  }
-  
-  /* 🌟 Button */
-  .register-button {
-    background: #755139;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .register-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 15px rgba(117, 81, 57, 0.5);
-  }
-  
-  /* 🌟 Links */
-  .register-links {
-    margin-top: 15px;
-  }
-  
-  .register-links a {
-    color: #755139;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .register-links a:hover {
-    text-decoration: underline;
-  }
-  
+}
+
+/* 🌟 Title */
+.register-title {
+  font-size: 1.8rem;
+  color: #755139;
+  margin-bottom: 20px;
+}
+
+/* 🌟 Input */
+.register-input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(117, 81, 57, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.register-input-group i {
+  color: #755139;
+  margin-right: 10px;
+}
+
+.register-input-group input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 1rem;
+}
+
+/* 🌟 Button */
+.register-button {
+  background: #755139;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.register-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 15px rgba(117, 81, 57, 0.5);
+}
+
+/* 🌟 Links */
+.register-links {
+  margin-top: 15px;
+}
+
+.register-links a {
+  color: #755139;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-links a:hover {
+  text-decoration: underline;
+}

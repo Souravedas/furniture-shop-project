@@ -16,9 +16,9 @@ const VerifyEmailSuccess = () => {
       <div className="verify-success-card">
         <h2>🎉 Email Verified!</h2>
         <p>Your email has been successfully verified. You can now log in and access your account.</p>
-        
-        <NavLink to="/login" className="login-button">Go to Login</NavLink>
-        
+
+        <NavLink to="/login" className="login-btn">Go to Login</NavLink>
+
         <div className="celebration-animation">
           🎊 🎈 🎉
         </div>

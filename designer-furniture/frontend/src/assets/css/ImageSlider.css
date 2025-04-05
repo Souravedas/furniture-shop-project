@@ -1,4 +1,3 @@
-/* Image Slider Container */
 .slider-container {
   width: 100%;
   height: calc(100vh - 70px);
@@ -6,10 +5,9 @@
   overflow: hidden;
 }
 
-/* Individual Slides */
 .slide {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,9 +17,9 @@
 /* Slide Image */
 .slide-image {
   width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  transition: transform 0.8s ease-in-out;
+  height: calc(100vh - 70px);
+  object-fit: fill;
+  object-position: center center;
 }
 
 /* Centered Text */
@@ -77,6 +75,7 @@
     opacity: 0;
     transform: translate(-50%, -30%);
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
