@@ -35,7 +35,7 @@ const SearchPage = () => {
 			localStorage.setItem("lastSearchedCategory", category)
 		}
 	}, [category])
-	
+
 
 	// Handle furniture selection for comparison (Persistent)
 	const handleSelect = (item) => {
@@ -81,7 +81,7 @@ const SearchPage = () => {
 							<h3>{item.name}</h3>
 							<p><strong>Designer:</strong> {item.designer}</p>
 							<p><strong>Category:</strong> {item.category}</p>
-							<p><strong>Price:</strong> ${item.price}</p>
+							<p><strong>Price:</strong> ৳{item.price}</p>
 							<div className="product-buttons">
 								<button onClick={() => window.open(item.link, "_blank")}>View Product</button>
 								<button onClick={() => handleSelect(item)}>Compare</button>

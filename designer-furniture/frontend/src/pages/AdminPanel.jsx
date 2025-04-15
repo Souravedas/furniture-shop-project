@@ -96,7 +96,7 @@ const AdminPanel = () => {
 									<option value="cushion">Cushion</option>
 									<option value="dining table">Dining Table</option>
 								</select>
-								<input type="number" name="price" placeholder="Price ($)" value={newFurniture.price} onChange={handleChange} required />
+								<input type="number" name="price" placeholder="Price (৳)" value={newFurniture.price} onChange={handleChange} required />
 							</div>
 
 							<textarea name="description" placeholder="Furniture Description" value={newFurniture.description} onChange={handleChange} required />
@@ -122,7 +122,7 @@ const AdminPanel = () => {
 										<h3>{item.name}</h3>
 										<p><strong>Designer:</strong> {item.designer}</p>
 										<p><strong>Category:</strong> {item.category}</p>
-										<p><strong>Price:</strong> ${item.price}</p>
+										<p><strong>Price:</strong> ৳{item.price}</p>
 										<button onClick={() => handleEdit(item)} className="edit-btn">Edit</button>
 										<button onClick={() => handleDelete(item._id)} className="delete-btn">Delete</button>
 									</div>
