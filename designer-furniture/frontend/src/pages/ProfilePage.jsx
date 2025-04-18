@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, use } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
+import { toast } from "react-toastify"
 
 const ProfilePage = () => {
 	const [name, setName] = useState("")
@@ -49,10 +50,11 @@ const ProfilePage = () => {
 
 		try {
 			const response = await axios.post("https://api.cloudinary.com/v1_1/doxbal3s7/image/upload", formData)
+			toast.success("Image uploaded successfully!")
 			return response.data.secure_url
 		} catch (error) {
 			console.error("Error uploading image:", error)
-			alert("Failed to upload image. Try again.")
+			toast.error("Error uploading image. Please try again.")
 			return null
 		}
 	}
@@ -75,10 +77,10 @@ const ProfilePage = () => {
 			localStorage.setItem("user", JSON.stringify(updatedUser))
 			setUser(updatedUser)
 
-			alert("Profile updated!");
+			toast.success("Profile updated successfully!")
 		} catch (error) {
 			console.error("Error updating profile:", error)
-			alert(error.response?.data?.message || "Something went wrong. Please try again.")
+			toast.error("Error updating profile. Please try again.")
 		}
 	}
 
@@ -101,11 +103,11 @@ const ProfilePage = () => {
 				{ oldPassword, newPassword },
 				{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
 			)
-			alert("Password changed successfully!")
+			toast.success("Password changed successfully!")
 			setOldPassword("")
 			setNewPassword("")
 		} catch (error) {
-			alert("Error changing password.")
+			toast.error("Error changing password. Please try again.")
 		}
 	}
 

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
+import { toast } from 'react-toastify'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 const AdminPanel = () => {
 	const { user } = useContext(AuthContext)
@@ -16,10 +19,6 @@ const AdminPanel = () => {
 	})
 	const [editingId, setEditingId] = useState(null)
 
-	useEffect(() => {
-		fetchFurniture()
-	}, [])
-
 	const fetchFurniture = async () => {
 		try {
 			const response = await axios.get("/api/furniture")
@@ -28,6 +27,10 @@ const AdminPanel = () => {
 			console.error("Error fetching furniture:", error)
 		}
 	}
+
+	useEffect(() => {
+		fetchFurniture()
+	}, [])
 
 	const handleChange = (e) => {
 		setNewFurniture({ ...newFurniture, [e.target.name]: e.target.value })
@@ -46,12 +49,12 @@ const AdminPanel = () => {
 				})
 			}
 
-			alert(editingId ? "Furniture updated successfully!" : "Furniture added successfully!")
+			toast.success(editingId ? "Furniture updated successfully!" : "Furniture added successfully!")
 			setNewFurniture({ name: "", designer: "", category: "", description: "", price: "", image: "", link: "" })
 			setEditingId(null)
 			fetchFurniture()
 		} catch (error) {
-			alert("Error adding/updating furniture.")
+			toast.error("Error saving furniture. Please try again.")
 		}
 	}
 
@@ -61,17 +64,33 @@ const AdminPanel = () => {
 	}
 
 	const handleDelete = async (id) => {
-		if (window.confirm("Are you sure you want to delete this furniture?")) {
-			try {
-				await axios.delete(`/api/furniture/${id}`, {
-					headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-				})
-				fetchFurniture()
-			} catch (error) {
-				alert("Error deleting furniture.")
-			}
-		}
-	}
+		confirmAlert({
+			title: "Confirm Deletion",
+			message: "Are you sure you want to delete this furniture?",
+			buttons: [
+				{
+					label: "Yes",
+					onClick: async () => {
+						try {
+							await axios.delete(`/api/furniture/${id}`, {
+								headers: {
+									Authorization: `Bearer ${localStorage.getItem("token")}`,
+								},
+							});
+							toast.success("Furniture deleted successfully.");
+							fetchFurniture();
+						} catch (error) {
+							toast.error("Error deleting furniture. Please try again.");
+						}
+					},
+				},
+				{
+					label: "No",
+					onClick: () => { }, // Optional cancel action
+				},
+			],
+		});
+	};
 
 	return (
 		<div className="admin-panel">

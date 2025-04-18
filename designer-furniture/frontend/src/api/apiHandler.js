@@ -1,29 +1,18 @@
-import axios from "axios"
+import axios from "axios";
 
 const apiHandler = async (route, data = {}) => {
     try {
-        const options = {
+        const response = await axios({
             url: route.url,
             method: route.method,
-            data: data
-        }
+            data: data,
+        });
 
-        const response = await axios(options)
-        const responseResult = response?.data
-
-        return responseResult
-
+        return response?.data;
     } catch (error) {
-        console.log(error)
-        const message = error?.response?.data
-        if (message){
-            alert(message?.message)
-        }
-        else{
-            alert("An error occurred while trying to perform the requested operation.")
-        }
-        return false
+        const message = error?.response?.data?.message || "An error occurred";
+        return { error: true, message };
     }
-}
+};
 
-export default apiHandler
+export default apiHandler;

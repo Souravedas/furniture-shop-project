@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 import axios from "axios"
+import { toast } from "react-toastify"
 
 const SearchPage = () => {
 	const [searchParams] = useSearchParams()
@@ -39,18 +40,22 @@ const SearchPage = () => {
 
 	// Handle furniture selection for comparison (Persistent)
 	const handleSelect = (item) => {
+		if (selectedItems.length === 1) {
+			toast.success("Scroll down to see the comparison!")
+		}
 		if (selectedItems.length < 2) {
 			const updatedSelection = [...selectedItems, item]
 			setSelectedItems(updatedSelection)
 			localStorage.setItem("selectedItems", JSON.stringify(updatedSelection))
 		} else {
-			alert("You can only compare two items at a time!")
+			toast.error("You can only compare 2 items at a time.")
 		}
 	}
 
 	// Clear comparison (Also clear from local storage)
 	const clearComparison = () => {
 		setSelectedItems([])
+		toast.success("Comparison cart has been cleared!")
 		localStorage.removeItem("selectedItems")
 	}
 
@@ -62,7 +67,7 @@ const SearchPage = () => {
 			<select
 				onChange={(e) => setCategory(e.target.value)}
 				className="category-dropdown"
-				value={category} // ✅ Keep dropdown updated
+				value={category}
 			>
 				<option value="all">All Categories</option>
 				<option value="sofa">Sofa</option>

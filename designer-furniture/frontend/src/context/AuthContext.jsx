@@ -1,44 +1,55 @@
 import { createContext, useState } from "react"
 import apiHandler from "../api/apiHandler"
 import { authRoutes } from "../api/apiRoutes"
+import { toast } from "react-toastify"
 
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
+    const [user, setUser] = useState(() => {
+        try {
+            const storedUser = localStorage.getItem("user");
+            // Fix for string "undefined"
+            if (!storedUser || storedUser === "undefined") return null;
+            return JSON.parse(storedUser);
+        } catch (error) {
+            console.error("Error parsing user from localStorage:", error);
+            return null;
+        }
+    });
+
     const [message, setMessage] = useState({ type: "", text: "" })
 
     // Login
     const login = async (email, password) => {
-        try {
-            const response = await apiHandler(authRoutes.login, { email, password })
-            if (!response) throw new Error("Invalid email or password")
+        const response = await apiHandler(authRoutes.login, { email, password });
 
-            setMessage({ type: "success", text: "Login successful! Redirecting..." })
-            localStorage.setItem("user", JSON.stringify(response.user))
-            localStorage.setItem("token", response.token)
-            setUser(response.user)
-
-            return true
-        } catch (error) {
-            setMessage({ type: "error", text: error.message })
-            return false
+        if (response?.error) {
+            toast.error(response.message || "Login failed");
+            return false;
         }
-    }
+
+        toast.success("Login successful! Redirecting...");
+        localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.setItem("token", response.token);
+        setUser(response.user);
+        return true;
+    };
+
 
     // Register
     const register = async (name, email, password) => {
-        try {
-            const response = await apiHandler(authRoutes.register, { name, email, password })
-            if (!response) throw new Error("Registration failed")
+        const response = await apiHandler(authRoutes.register, { name, email, password })
 
-            setMessage({ type: "success", text: response.message || "Account created! Check your email to verify your account." })
-            return true
-        } catch (error) {
-            setMessage({ type: "error", text: error.message })
+        if (response?.error) {
+            toast.error(response.error)
             return false
         }
+
+        toast.success(response.message || "✅ Account is registered! please check your email for verification.")
+        return true
     }
+
 
     // Logout
     const logout = async () => {

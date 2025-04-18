@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 import nodemailer from "nodemailer"
 import crypto from "crypto"
 import dotenv from "dotenv"
+import { error } from "console"
 
 dotenv.config()
 
@@ -19,11 +20,13 @@ const transporter = nodemailer.createTransport({
 // 🔹 REGISTER USER & SEND VERIFICATION EMAIL
 export const registerUser = async (req, res) => {
 	try {
+		const userCount = await User.countDocuments();
+		const isAdmin = userCount === 0;
 		const { name, email, password } = req.body;
 
 		// Check if user already exists
 		const existingUser = await User.findOne({ email });
-		if (existingUser) return res.status(400).json({ message: "Email already registered" })
+		if (existingUser) return res.status(400).json({ error: "Email already registered" })
 
 		// Hash password
 		const salt = await bcrypt.genSalt(10)
@@ -39,6 +42,7 @@ export const registerUser = async (req, res) => {
 			password: hashedPassword,
 			verified: false,
 			verificationToken,
+			isAdmin,
 		})
 
 		await newUser.save()

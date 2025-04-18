@@ -8,24 +8,22 @@ const Register = () => {
 	const [password, setPassword] = useState("")
 
 	const navigate = useNavigate()
-	const { register, message, setMessage } = useContext(AuthContext)
+	const { register } = useContext(AuthContext)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		const response = await register(name, email, password)
-		if (!response) return
-
-		setTimeout(() => {
-			setMessage({ type: "", text: "" })
-			navigate("/login")
-		}, 1000)
+		const success = await register(name, email, password)
+		if (success) {
+			setTimeout(() => {
+				navigate("/login")
+			}, 1000)
+		}
 	}
 
 	return (
 		<div className="register-container">
 			<div className="register-card">
 				<h2 className="register-title">Register</h2>
-				{message.text && <p className={`alert ${message.type}`}>{message.text}</p>}
 				<form onSubmit={handleSubmit}>
 					<div className="register-input-group">
 						<i className="fa-solid fa-user"></i>
@@ -60,9 +58,7 @@ const Register = () => {
 						/>
 					</div>
 
-					<button type="submit" className="register-button">
-						Register
-					</button>
+					<button type="submit" className="register-button">Register</button>
 				</form>
 
 				<p className="register-links">

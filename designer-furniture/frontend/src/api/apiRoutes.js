@@ -2,7 +2,6 @@ const baseUrl = "http://localhost:5123"
 
 // paths
 const auth = "auth"
-const furniture = "furniture"
 const profile = "profile"
 
 // methods
@@ -24,13 +23,7 @@ const authRoutes = {
     register: routeMaker(auth, "register", POST),
 }
 
-// furniture routes
-const furnitureRoutes = {
-    
-}
-
 export {
     baseUrl,
-    authRoutes,
-    furnitureRoutes
+    authRoutes
 }

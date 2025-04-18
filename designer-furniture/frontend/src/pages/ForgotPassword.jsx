@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
+import { toast } from "react-toastify"
 
 const ForgotPassword = () => {
 	const [email, setEmail] = useState("")
@@ -15,31 +16,31 @@ const ForgotPassword = () => {
 
 		try {
 			await axios.post("/api/auth/forgot-password", { email })
-			setMessage("✅ OTP sent to your email.")
+			toast.success("OTP sent to your email!")
 			setStep(2)
 		} catch (error) {
-			setError("⚠️ If this email exists, a reset link has been sent.")
+			toast.error(error.response?.data?.message || "⚠️ Error sending OTP.")
 		}
 	};
 
 	const handleResetPassword = async () => {
 		setMessage("")
 		setError("")
-	
+
 		// console.log("Sending reset request with:", { email, otp, newPassword })
-	
+
 		try {
 			axios.post("http://localhost:5123/api/auth/reset-password", { email, otp: Number(otp), newPassword })
-			setMessage("✅ Password reset successfully!")
+			toast.success("✅ Password reset successfully!")
 			setTimeout(() => {
 				window.location.href = "/login"
 			}, 1000)
 		} catch (error) {
 			// console.error("Error resetting password:", error.response ? error.response.data : error.message)
-			setError(error.response?.data?.message || "⚠️ Invalid OTP or error resetting password.")
+			toast.error(error.response?.data?.message || "⚠️ Invalid OTP.")
 		}
 	};
-	
+
 
 	return (
 		<div className="forgot-password-container">
