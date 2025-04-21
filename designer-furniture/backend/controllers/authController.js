@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken"
 import nodemailer from "nodemailer"
 import crypto from "crypto"
 import dotenv from "dotenv"
-import { error } from "console"
 
 dotenv.config()
 

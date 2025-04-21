@@ -26,10 +26,10 @@ const HomePage = () => {
 				console.error("Error fetching images:", error)
 			}
 		}
-	
+
 		fetchSliderImages()
 	}, [])
-	
+
 
 	// ✅ Scroll when coming from another page
 	useEffect(() => {

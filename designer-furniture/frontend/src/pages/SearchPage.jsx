@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 
@@ -11,6 +11,7 @@ const SearchPage = () => {
 	const [selectedItems, setSelectedItems] = useState(
 		JSON.parse(localStorage.getItem("selectedItems")) || []
 	)
+	const navigate = useNavigate()
 
 	// Ensure category updates when clicking from Product Section
 	useEffect(() => {
@@ -40,8 +41,8 @@ const SearchPage = () => {
 
 	// Handle furniture selection for comparison (Persistent)
 	const handleSelect = (item) => {
-		if (selectedItems.length === 1) {
-			toast.success("Scroll down to see the comparison!")
+		if (selectedItems.length === 0) {
+			toast.success("Choose another item to compare!")
 		}
 		if (selectedItems.length < 2) {
 			const updatedSelection = [...selectedItems, item]
@@ -49,6 +50,9 @@ const SearchPage = () => {
 			localStorage.setItem("selectedItems", JSON.stringify(updatedSelection))
 		} else {
 			toast.error("You can only compare 2 items at a time.")
+		}
+		if (selectedItems.length === 1) {
+			navigate("/footer")
 		}
 	}
 

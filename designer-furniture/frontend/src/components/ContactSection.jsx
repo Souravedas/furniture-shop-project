@@ -82,13 +82,14 @@ const ContactSection = ({ contactRef }) => {
                         name="message"
                         id="yourmessage"
                         placeholder="Your Message"
-                        rows="5"
+                        rows="7"
                         value={formData.message}
                         onChange={handleChange}
                         required
                     ></textarea>
+
+                    <button type="submit" className="send-btn">Send</button>
                 </form>
-                <button type="submit" className="send-btn">Send</button>
 
             </div>
         </section>

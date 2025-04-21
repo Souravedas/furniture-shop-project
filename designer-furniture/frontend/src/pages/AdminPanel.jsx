@@ -142,7 +142,7 @@ const AdminPanel = () => {
 										<p><strong>Designer:</strong> {item.designer}</p>
 										<p><strong>Category:</strong> {item.category}</p>
 										<p><strong>Price:</strong> ৳{item.price}</p>
-										<button onClick={() => handleEdit(item)} className="edit-btn">Edit</button>
+										<button onClick={() => { handleEdit(item); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="edit-btn">Edit</button>
 										<button onClick={() => handleDelete(item._id)} className="delete-btn">Delete</button>
 									</div>
 								</div>
@@ -154,8 +154,9 @@ const AdminPanel = () => {
 				</div>
 			) : (
 				<p className="admin-access-denied">Access denied. Admins only.</p>
-			)}
-		</div>
+			)
+			}
+		</div >
 	)
 }
 
