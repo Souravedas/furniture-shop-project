@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { useSearchParams, useNavigate } from "react-router-dom"
+import React, { useState, useEffect, useRef } from "react"
+import { useSearchParams } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 
@@ -11,7 +11,7 @@ const SearchPage = () => {
 	const [selectedItems, setSelectedItems] = useState(
 		JSON.parse(localStorage.getItem("selectedItems")) || []
 	)
-	const navigate = useNavigate()
+	const comparisonRef = useRef(null)
 
 	// Ensure category updates when clicking from Product Section
 	useEffect(() => {
@@ -33,6 +33,12 @@ const SearchPage = () => {
 	}, [category])
 
 	useEffect(() => {
+		if (selectedItems.length === 2 && comparisonRef.current) {
+			comparisonRef.current.scrollIntoView({ behavior: "smooth" })
+		}
+	}, [selectedItems])
+
+	useEffect(() => {
 		if (category !== "all") {
 			localStorage.setItem("lastSearchedCategory", category)
 		}
@@ -50,9 +56,6 @@ const SearchPage = () => {
 			localStorage.setItem("selectedItems", JSON.stringify(updatedSelection))
 		} else {
 			toast.error("You can only compare 2 items at a time.")
-		}
-		if (selectedItems.length === 1) {
-			navigate("/footer")
 		}
 	}
 
@@ -82,7 +85,7 @@ const SearchPage = () => {
 			</select>
 
 			{/* Furniture Grid */}
-			<div className="product-grid" style={{ justifyContent: furniture.length < 5 ? "center" : "flex-start" }}>
+			<div className="product-grid">
 				{furniture.length > 0 ? (
 					furniture.map((item) => (
 						<div key={item._id} className="product-card">
@@ -104,7 +107,7 @@ const SearchPage = () => {
 
 			{/* Persistent Comparison Section */}
 			{selectedItems.length > 0 && (
-				<div className="comparison-container">
+				<div className="comparison-container" ref={comparisonRef}>
 					<h2>Comparison</h2>
 					<div className="comparison-grid">
 						{selectedItems.map((item) => (

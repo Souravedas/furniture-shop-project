@@ -38,7 +38,11 @@ const MainLayout = () => {
         location.pathname === "/login" ||
         location.pathname === "/register" ||
         location.pathname === "/forgot-password" ||
-        location.pathname === "/verify-email-success"
+        location.pathname === "/verify-email-success" ||
+        location.pathname === "/admin" ||
+        location.pathname === "/admin/users" ||
+        location.pathname === "/admin/messages" ||
+        location.pathname === "/admin/add-furniture"
 
     const hideNavbar = location.pathname === "/verify-email-success"
 

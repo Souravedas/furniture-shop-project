@@ -1,18 +1,20 @@
-import axios from "axios";
+import axios from "axios"
 
 const apiHandler = async (route, data = {}) => {
     try {
+        const token = localStorage.getItem("token")
+
         const response = await axios({
-            url: route.url,
             method: route.method,
-            data: data,
-        });
+            url: route.url,
+            data,
+            headers: token ? { Authorization: `Bearer ${token}` } : {}
+        })
 
-        return response?.data;
-    } catch (error) {
-        const message = error?.response?.data?.message || "An error occurred";
-        return { error: true, message };
+        return response.data
+    } catch (err) {
+        return { error: true, message: err.response?.data?.message || err.message }
     }
-};
+}
 
-export default apiHandler;
+export default apiHandler

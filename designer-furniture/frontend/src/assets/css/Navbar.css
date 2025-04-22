@@ -1,184 +1,183 @@
 /* Navbar design */
 .navigation {
-  width: 100%;
-  height: 70px;
-  overflow: visible;
-  background: #755139;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 70px;
+    overflow: visible;
+    background: #755139;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
 
 .navigation .container {
-  height: 100%;
+    height: 100%;
 }
 
 .navigation .nav-wrapper {
-  width: 100%;
-  height: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
 /* Logo */
 .nav-wrapper .logo {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .nav-wrapper .logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .nav-wrapper .logo a {
-  color: rgb(233, 233, 233);
-  font-weight: 600;
-  font-family: var(--font-2);
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
+    color: rgb(233, 233, 233);
+    font-weight: 600;
+    font-family: var(--font-2);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
 }
 
 /* Menus */
 .nav-wrapper .menu ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 25px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
 .menu ul li {
-  display: inline-block;
+    display: inline-block;
 }
 
 .menu ul li .active {
-  color: rgb(233, 233, 233);
-  font-weight: 700;
-  font-size: 17px;
-  text-decoration: none;
-  transition: color 0.3s ease-in-out;
+    color: rgb(233, 233, 233);
+    font-weight: 700;
+    font-size: 17px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
 }
 
 .menu ul li .active:hover {
-  color: black;
+    color: black;
 }
 
 /* Buttons */
 .menu ul li button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  color: white;
-  font-weight: 700;
-  font-size: 17px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: white;
+    font-weight: 700;
+    font-size: 17px;
 }
 
 .menu ul li button:hover {
-  color: black;
+    color: black;
 }
 
 /* Profile Dropdown */
 .profile-menu {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  z-index: 999;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 999;
 }
 
 /* Profile Picture */
 .logo-profile-pic {
-  width: 40px; /* Fixed size */
-  height: 40px; /* Fixed size */
-  border-radius: 50%;
-  object-fit: cover; /* Ensure the image fills the circle correctly */
-  border: 2px solid #F2EDD7;
-  display: block; /* Make sure the image behaves as a block element */
-  overflow: hidden; /* Hide any overflowed content */
+    width: 40px; /* Fixed size */
+    height: 40px; /* Fixed size */
+    border-radius: 50%;
+    object-fit: cover; /* Ensure the image fills the circle correctly */
+    border: 2px solid #f2edd7;
+    display: block; /* Make sure the image behaves as a block element */
+    overflow: hidden; /* Hide any overflowed content */
 }
 
 /* Profile Initials */
 .profile-initials {
-  width: 40px; /* Same size as profile-pic */
-  height: 40px; /* Same size as profile-pic */
-  border-radius: 50%;
-  background-color: #F2EDD7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #755139;
-  font-size: 18px; /* Adjust this font size for better readability */
-  text-align: center;
-  line-height: 40px; /* Ensure the initials are centered vertically */
+    width: 40px; /* Same size as profile-pic */
+    height: 40px; /* Same size as profile-pic */
+    border-radius: 50%;
+    background-color: #f2edd7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #755139;
+    font-size: 18px; /* Adjust this font size for better readability */
+    text-align: center;
+    line-height: 40px; /* Ensure the initials are centered vertically */
 }
-
 
 /* Dropdown Menu */
 .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: #755139;
-  border-radius: 5px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s ease-in-out;
-  z-index: 1000;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #755139;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
 }
 
 .dropdown-menu.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease; 
-  border-radius: 5px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-radius: 5px;
 }
 
 .dropdown-menu li {
-  padding: 12px 20px;
-  text-align: left;
-  font-size: 16px;
-  color: #F2EDD7; 
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #f2edd7;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-menu li a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-  padding: 5px 0;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
 }
 
 .dropdown-menu li button {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 5px 0;
-  text-align: left;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 0;
+    text-align: left;
 }
 
 .dropdown-menu li:hover {
-  background-color: #D4A37B; 
-  transition: background-color 0.3s ease;
-  border-radius: 5px;
+    background-color: #d4a37b;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
 }
 
 .dropdown-menu li a:hover,
 .dropdown-menu li button:hover {
-  color: #6d4c41;
-  padding-left: 10px; 
+    color: #6d4c41;
+    padding-left: 10px;
 }
-

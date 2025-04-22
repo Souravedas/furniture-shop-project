@@ -1,26 +1,32 @@
 /* local imports */
-@import './assets/css/global.css';
-@import './assets/css/Navbar.css';
+@import "./assets/css/global.css";
+@import "./assets/css/Navbar.css";
 /*navbar design*/
-@import './assets/css/ImageSlider.css';
+@import "./assets/css/ImageSlider.css";
 /*image slider design*/
-@import './assets/css/about.css';
+@import "./assets/css/about.css";
 /*about section design*/
-@import './assets/css/ContactSection.css';
+@import "./assets/css/ContactSection.css";
 /*contact section design*/
-@import './assets/css/ProductSection.css';
+@import "./assets/css/ProductSection.css";
 /*product section design*/
-@import './assets/css/Footer.css';
+@import "./assets/css/Footer.css";
 /*footer design*/
-@import './assets/css/AdminPanel.css';
+@import "./assets/css/AdminPanel.css";
 /*admin panel design*/
-@import './assets/css/ProfilePage.css';
+@import "./assets/css/ProfilePage.css";
 /*profile page design*/
-@import './assets/css/SearchPage.css';
+@import "./assets/css/SearchPage.css";
 /*search page design*/
-@import './assets/css/ForgotPassword.css';
+@import "./assets/css/ForgotPassword.css";
 /*forgot password design*/
-@import './assets/css/Login.css';
+@import "./assets/css/Login.css";
 /*login page design*/
-@import './assets/css/Register.css';
+@import "./assets/css/Register.css";
 /*register page design*/
+@import "./assets/css/AdminSidebar.css";
+/*admin sidebar design*/
+@import "./assets/css/MessageList.css";
+/*message list design*/
+@import "./assets/css/UserManagement.css";
+/*user management design*/

@@ -150,9 +150,26 @@ const ProfilePage = () => {
 					<div className="profile-section">
 						<h3>Update Profile</h3>
 						<form onSubmit={handleUpdateProfile}>
-							<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Full Name" required />
-							<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" required />
-							<button type="submit" className="update-btn">Save Changes</button>
+							<input
+								type="text"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+								placeholder="Full Name"
+								required
+							/>
+							<input
+								type="email"
+								value={email}
+								placeholder="Email Address"
+								disabled
+								style={{ backgroundColor: "#f0f0f0", cursor: "not-allowed" }}
+								required
+							/>
+							<button
+								type="submit"
+								className="update-btn">
+								Save Changes
+							</button>
 						</form>
 					</div>
 
@@ -160,9 +177,25 @@ const ProfilePage = () => {
 					<div className="profile-section">
 						<h3>Change Password</h3>
 						<form onSubmit={handleChangePassword}>
-							<input type="password" placeholder="Old Password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
-							<input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-							<button type="submit" className="password-btn">Update Password</button>
+							<input
+								type="password"
+								placeholder="Old Password"
+								value={oldPassword}
+								onChange={(e) => setOldPassword(e.target.value)}
+								required
+							/>
+							<input
+								type="password"
+								placeholder="New Password"
+								value={newPassword}
+								onChange={(e) => setNewPassword(e.target.value)}
+								required
+							/>
+							<button
+								type="submit"
+								className="password-btn">
+								Update Password
+							</button>
 						</form>
 					</div>
 				</div>

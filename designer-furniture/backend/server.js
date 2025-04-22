@@ -6,6 +6,8 @@ import authRoutes from "./routes/authRoutes.js"
 import furnitureRoutes from "./routes/furnitureRoutes.js"
 import profileRoutes from "./routes/profileRoutes.js"
 import forgotPasswordRoutes from "./routes/forgotPasswordRoutes.js"
+import contactRoutes from "./routes/contactRoutes.js"
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config()
 
@@ -17,6 +19,8 @@ app.use("/api/auth", authRoutes)
 app.use("/api/furniture", furnitureRoutes)
 app.use("/api/profile", profileRoutes)
 app.use("/api/auth", forgotPasswordRoutes)
+app.use("/api/contact", contactRoutes)
+app.use("/api/users", userRoutes);
 
 mongoose
 	.connect(process.env.MONGO_URI)

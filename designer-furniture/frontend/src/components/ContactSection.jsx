@@ -1,23 +1,46 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import apiHandler from "../api/apiHandler"
+import { AuthContext } from "../context/AuthContext"
+import { toast } from "react-toastify"
 
 const ContactSection = ({ contactRef }) => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-    })
+    const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" })
+    const { user } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("Form Submitted:", formData)
-        alert("Your message has been sent!")
-        setFormData({ name: "", email: "", phone: "", message: "" })
+
+        if (!user) {
+            localStorage.setItem("unsentContact", JSON.stringify(formData))
+            navigate("/login")
+            return
+        }
+
+        try {
+            const response = await apiHandler(
+                { method: "post", url: "/api/contact/submit" },
+                { phone: formData.phone, message: formData.message }
+            )
+
+            if (response?.error) {
+                alert(response.message || "Something went wrong")
+            } else {
+                toast.success("Your message has been sent!")
+                setFormData({ name: "", email: "", phone: "", message: "" })
+                localStorage.removeItem("unsentContact")
+            }
+
+        } catch (error) {
+            alert(error?.message || "Something went wrong")
+        }
     }
+
 
     return (
         <section className="contact my-section" id="contact" ref={contactRef}>
@@ -48,7 +71,7 @@ const ContactSection = ({ contactRef }) => {
                     <p>Leave a message:</p>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="contact-form">
                     <div className="input-box">
                         <input
                             type="text"

@@ -1,0 +1,38 @@
+.message-list {
+    padding: 20px;
+    background: transparent;
+}
+
+.message-list h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+}
+
+.message-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.message-list li {
+    background-color: #fff;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+}
+
+.message-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.message-list p {
+    margin: 6px 0;
+    color: #444;
+}
+
+.message-list strong {
+    color: #222;
+}
