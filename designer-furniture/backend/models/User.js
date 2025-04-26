@@ -14,9 +14,18 @@ const userSchema = new mongoose.Schema(
 		verificationToken: { type: String },
 		resetOtp: { type: Number, default: null },
 		resetOtpExpires: { type: Date, default: null },
+
+		// 🔹 New Reviews field
+		reviews: [
+			{
+				content: { type: String, required: true },
+				rating: { type: Number, min: 1, max: 5, required: true },
+				createdAt: { type: Date, default: Date.now }
+			}
+		],
 	},
 	{ timestamps: true }
 )
 
-const User = mongoose.model("user", userSchema)
+const User = mongoose.model("User", userSchema)
 export default User

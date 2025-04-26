@@ -42,7 +42,8 @@ const MainLayout = () => {
         location.pathname === "/admin" ||
         location.pathname === "/admin/users" ||
         location.pathname === "/admin/messages" ||
-        location.pathname === "/admin/add-furniture"
+        location.pathname === "/admin/add-furniture" ||
+        location.pathname === "/admin/reviews"
 
     const hideNavbar = location.pathname === "/verify-email-success"
 

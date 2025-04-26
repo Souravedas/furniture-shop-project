@@ -30,3 +30,7 @@
 /*message list design*/
 @import "./assets/css/UserManagement.css";
 /*user management design*/
+@import "./assets/css/reviewSection.css";
+/*review section design*/
+@import "./assets/css/AdminReviews.css";
+/*admin reviews design*/

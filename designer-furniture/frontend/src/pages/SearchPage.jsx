@@ -4,8 +4,9 @@ import axios from "axios"
 import { toast } from "react-toastify"
 
 const SearchPage = () => {
-	const [searchParams] = useSearchParams()
+	const [searchParams, setSearchParams] = useSearchParams()
 	const initialCategory = searchParams.get("category") || "all"
+
 	const [category, setCategory] = useState(initialCategory)
 	const [furniture, setFurniture] = useState([])
 	const [selectedItems, setSelectedItems] = useState(
@@ -13,16 +14,17 @@ const SearchPage = () => {
 	)
 	const comparisonRef = useRef(null)
 
-	// Ensure category updates when clicking from Product Section
+	// Fetch furniture based on selected category
 	useEffect(() => {
 		const fetchFurniture = async () => {
 			try {
 				const formattedCategory = category.replace(/_/g, " ")
+				const endpoint =
+					category === "all"
+						? `/api/furniture`
+						: `/api/furniture?category=${encodeURIComponent(formattedCategory)}`
 
-				const response = await axios.get(
-					category === "all" ? "/api/furniture" : `/api/furniture?category=${encodeURIComponent(formattedCategory)}`
-				)
-
+				const response = await axios.get(endpoint)
 				setFurniture(response.data)
 			} catch (error) {
 				console.error("Error fetching furniture:", error)
@@ -32,6 +34,7 @@ const SearchPage = () => {
 		fetchFurniture()
 	}, [category])
 
+	// Scroll to comparison when two items are selected
 	useEffect(() => {
 		if (selectedItems.length === 2 && comparisonRef.current) {
 			comparisonRef.current.scrollIntoView({ behavior: "smooth" })
@@ -44,22 +47,21 @@ const SearchPage = () => {
 		}
 	}, [category])
 
-
-	// Handle furniture selection for comparison (Persistent)
+	// Handle item selection for comparison
 	const handleSelect = (item) => {
 		if (selectedItems.length === 0) {
 			toast.success("Choose another item to compare!")
 		}
-		if (selectedItems.length < 2) {
+		if (selectedItems.length < 3) {
 			const updatedSelection = [...selectedItems, item]
 			setSelectedItems(updatedSelection)
 			localStorage.setItem("selectedItems", JSON.stringify(updatedSelection))
 		} else {
-			toast.error("You can only compare 2 items at a time.")
+			toast.error("You can only compare 3 items at a time.")
 		}
 	}
 
-	// Clear comparison (Also clear from local storage)
+	// Clear comparison cart
 	const clearComparison = () => {
 		setSelectedItems([])
 		toast.success("Comparison cart has been cleared!")
@@ -68,21 +70,21 @@ const SearchPage = () => {
 
 	return (
 		<div className="search-container">
-			<h2>Search & Compare Furniture</h2>
+			<h2>Explore & Compare Furniture</h2>
 
-			{/* Category Filter */}
-			<select
-				onChange={(e) => setCategory(e.target.value)}
-				className="category-dropdown"
-				value={category}
-			>
-				<option value="all">All Categories</option>
-				<option value="sofa">Sofa</option>
-				<option value="table">Table</option>
-				<option value="chair">Chair</option>
-				<option value="cushion">Cushion</option>
-				<option value="dining table">Dining Table</option>
-			</select>
+			{/* Category Buttons */}
+			<div className="category-buttons">
+				{["all", "sofa", "table", "chair", "cushion", "dining table"].map((cat) => (
+					<button
+						key={cat}
+						className={`category-button ${category === cat ? "active" : ""}`}
+						onClick={() => setCategory(cat)}
+						type="button"
+					>
+						{cat.charAt(0).toUpperCase() + cat.slice(1)}
+					</button>
+				))}
+			</div>
 
 			{/* Furniture Grid */}
 			<div className="product-grid">
@@ -95,8 +97,18 @@ const SearchPage = () => {
 							<p><strong>Category:</strong> {item.category}</p>
 							<p><strong>Price:</strong> ৳{item.price}</p>
 							<div className="product-buttons">
-								<button onClick={() => window.open(item.link, "_blank")}>View Product</button>
-								<button onClick={() => handleSelect(item)}>Compare</button>
+								<button
+									type="button"
+									onClick={() => window.open(item.link, "_blank")}
+								>
+									View Product
+								</button>
+								<button
+									type="button"
+									onClick={() => handleSelect(item)}
+								>
+									Compare
+								</button>
 							</div>
 						</div>
 					))
@@ -105,7 +117,7 @@ const SearchPage = () => {
 				)}
 			</div>
 
-			{/* Persistent Comparison Section */}
+			{/* Comparison Section */}
 			{selectedItems.length > 0 && (
 				<div className="comparison-container" ref={comparisonRef}>
 					<h2>Comparison</h2>
@@ -117,11 +129,27 @@ const SearchPage = () => {
 								<p><strong>Designer:</strong> {item.designer}</p>
 								<p><strong>Category:</strong> {item.category}</p>
 								<p><strong>Description:</strong> {item.description}</p>
-								<p><strong>Price:</strong> ${item.price}</p>
+								<p><strong>Price:</strong> ৳{item.price}</p>
+								<div className="product-buttons">
+									<button
+										type="button"
+										onClick={() => {
+											window.open(item.link, "_blank")
+										}}
+									>
+										View Product
+									</button>
+								</div>
 							</div>
 						))}
 					</div>
-					<button onClick={clearComparison} className="clear-comparison-btn">Clear Comparison</button>
+					<button
+						className="clear-comparison-btn"
+						type="button"
+						onClick={clearComparison}
+					>
+						Clear Comparison
+					</button>
 				</div>
 			)}
 		</div>

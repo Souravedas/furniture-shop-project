@@ -51,7 +51,7 @@
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
 }
 
 .menu ul li {
@@ -64,6 +64,8 @@
     font-size: 17px;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
+    cursor: pointer;
+    padding: 10px 20px;
 }
 
 .menu ul li .active:hover {

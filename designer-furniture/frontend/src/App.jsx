@@ -14,6 +14,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import VerifyEmailSuccess from './pages/VerifyEmailSuccess'
 import UserManagement from './pages/userManagement'
 import MessageList from './pages/MessageList'
+import AdminReviews from './pages/AdminReviews'
 
 // components
 import AuthCheck from './components/AuthCheck'
@@ -36,6 +37,7 @@ const App = () => {
 						<Route index element={<AdminPanel />} />
 						<Route path="users" element={<UserManagement />} />
 						<Route path="messages" element={<MessageList />} />
+						<Route path="reviews" element={<AdminReviews />} />
 						{/* <Route path="settings" element={<AdminPanel />} /> */}
 					</Route>
 				</Route>

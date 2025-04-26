@@ -33,6 +33,13 @@ const AdminSidebar = () => {
                         {/* {!collapsed && <span>Message List</span>} */}
                     </NavLink>
                 </li>
+                <li className={location.pathname === "/admin/reviews" ? "active" : ""}>
+                    <NavLink to="/admin/reviews">
+                        <i className="fa-solid fa-star" />
+                        <span>Reviews</span>
+                    </NavLink>
+                </li>
+
             </ul>
         </div>
     )

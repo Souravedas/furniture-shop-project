@@ -2,132 +2,233 @@
 .search-container {
     text-align: center;
     padding: 30px;
-    background: #f2edd7;
+    background: linear-gradient(to bottom right, #fdf6e3, #f2edd7);
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
 }
 
 /* ======= Category Dropdown ======= */
 .category-dropdown {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    margin: 15px 0;
-    border: 2px solid #755139;
-    border-radius: 5px;
-    background: white;
+    margin: 20px 0;
+    border: 2px solid #8b5e3c;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-dropdown:hover {
+    border-color: #a47048;
 }
 
 /* ======= Product Grid ======= */
 .product-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
+}
+
+/* ======= Category Button Group ======= */
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.category-button {
+    padding: 12px 20px;
+    background: #fff;
+    border: 2px solid #8b5e3c;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #333;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.category-button:hover {
+    background: #f2e5d5;
+    border-color: #a47048;
+}
+
+.category-button.active {
+    background: linear-gradient(135deg, #8b5e3c, #5a3f2a);
+    color: #fff;
+    border-color: transparent;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .category-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 /* ======= Individual Product Card ======= */
 .product-card {
-    width: 280px;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
+    width: 300px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
     text-align: center;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+}
+
+.product-card::before {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    transform: rotate(45deg);
 }
 
 .product-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .product-card h3 {
-    font-size: 18px;
-    color: #333;
-    margin-top: 10px;
+    font-size: 20px;
+    color: #444;
+    margin: 15px 0 5px;
 }
 
 .product-card p {
     font-size: 14px;
+    color: #666;
     margin: 5px 0;
 }
 
 .product-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 12px;
+    margin-top: 15px;
 }
 
 .product-buttons button {
-    background: #755139;
+    background: linear-gradient(135deg, #8b5e3c, #5a3f2a);
     color: white;
-    padding: 8px;
+    padding: 10px 14px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s ease;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
 }
 
 .product-buttons button:hover {
-    background: #5a3f2a;
+    background: linear-gradient(135deg, #5a3f2a, #8b5e3c);
+    transform: scale(1.05);
 }
 
 /* ======= Comparison Section ======= */
 .comparison-container {
-    margin-top: 40px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    background: #fef9f1;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.comparison-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .comparison-grid {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 50px;
+    flex-wrap: wrap;
 }
 
 .comparison-card {
-    background: #f2edd7;
-    padding: 15px;
-    border-radius: 8px;
+    background: #fff8f0;
+    padding: 20px;
+    border-radius: 15px;
     text-align: center;
-    width: 45%;
+    width: 300px;
+    border: 2px solid #8b5e3c;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s;
+}
+
+.comparison-card:hover {
+    transform: translateY(-8px);
 }
 
 .comparison-card img {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
+    width: 170px;
+    height: 170px;
     object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .comparison-card h3 {
-    font-size: 18px;
-    color: #333;
+    font-size: 20px;
+    color: #444;
+    margin: 10px 0;
+}
+
+.comparison-card p {
+    font-size: 14px;
+    margin: 6px 0;
+    color: #555;
 }
 
 .clear-comparison-btn {
-    background: #dc3545;
-    color: white;
-    padding: 10px;
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    color: #fff;
+    padding: 12px 18px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 16px;
-    transition: background 0.3s ease;
-    margin-top: 20px;
+    margin-top: 30px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
 }
 
 .clear-comparison-btn:hover {
-    background: #a71d2a;
+    background: linear-gradient(135deg, #f9d423, #ff4e50);
+    transform: scale(1.1);
 }
 
 /* Responsive */
@@ -138,6 +239,11 @@
     }
 
     .comparison-card {
-        width: 100%;
+        width: 90%;
+    }
+
+    .product-grid {
+        flex-direction: column;
+        align-items: center;
     }
 }
