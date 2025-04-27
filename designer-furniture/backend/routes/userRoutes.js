@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers, deleteUser, submitReview, getAllReviews, deleteReview } from '../controllers/userController.js';
+import { getAllUsers, deleteUser, submitReview, getAllReviews, deleteReview, clearUserMessage } from '../controllers/userController.js';
 import { protect, admin } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -12,5 +12,8 @@ router.delete("/:id", protect, admin, deleteUser)
 router.post("/review", protect, submitReview)
 router.get("/reviews", getAllReviews)
 router.delete("/reviews/:createdAt", protect, admin, deleteReview)
+// Clear user's message
+router.patch("/:id/clear-message", protect, admin, clearUserMessage)
+
 
 export default router

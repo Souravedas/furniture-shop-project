@@ -104,6 +104,17 @@ const ReviewSection = () => {
         }
     }
 
+    const getInitials = (fullName) => {
+        if (!fullName) return ""
+        const words = fullName.trim().split(" ")
+        return words.length > 1
+            ? words[0][0].toUpperCase() + words[1][0].toUpperCase()
+            : words[0][0].toUpperCase()
+    }
+
+    const profilePicture = user?.profilePicture || null
+    const name = user?.name || ""
+
     return (
         <section className="review-section">
             <h1>What Our Customers Say</h1>
@@ -153,11 +164,16 @@ const ReviewSection = () => {
                         <div className={`review-card ${fade ? "fade" : ""}`} key={allReviews[currentReview]?.createdAt}>
                             <div className="avatar">
                                 <div className="initials">
-                                    {allReviews[currentReview]?.name
-                                        .split(" ")
-                                        .map(n => n[0])
-                                        .join("")
-                                        .toUpperCase()}
+                                    {profilePicture ? (
+                                        <img
+                                            src={profilePicture}
+                                            alt="Profile"
+                                            className="review-pic"
+                                            onError={(e) => e.target.src = "/default-avatar.png"}
+                                        />
+                                    ) : (
+                                        <div className="get-initials">{getInitials(name)}</div>
+                                    )}
                                 </div>
                             </div>
                             <div className="quote-icon">❝</div>

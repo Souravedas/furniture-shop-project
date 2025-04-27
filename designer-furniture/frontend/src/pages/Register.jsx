@@ -32,6 +32,7 @@ const Register = () => {
 							placeholder="Name"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
+							autoComplete="on"
 							required
 						/>
 					</div>
@@ -43,6 +44,7 @@ const Register = () => {
 							placeholder="Email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
+							autoComplete="on"
 							required
 						/>
 					</div>

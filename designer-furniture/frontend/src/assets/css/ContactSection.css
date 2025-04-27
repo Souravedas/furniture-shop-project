@@ -89,3 +89,17 @@ textarea {
 .send-btn:hover {
     background: #603c2f;
 }
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .input-box .boxes {
+        width: 100%;
+    }
+    .contact-box {
+        flex-direction: column;
+        align-items: center;
+    }
+    textarea {
+        width: 100%;
+    }
+}

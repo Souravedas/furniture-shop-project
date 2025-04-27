@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import AdminSidebar from "../components/AdminSidebar"
 import { toast } from "react-toastify"
+import { confirmAlert } from "react-confirm-alert"
 
 const AdminReviews = () => {
     const [reviews, setReviews] = useState([])
@@ -18,15 +19,32 @@ const AdminReviews = () => {
     }
 
     const handleDelete = async (createdAt) => {
-        try {
-            await axios.delete(`/api/users/reviews/${createdAt}`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-            })
-            toast.success("Review deleted successfully")
-            fetchReviews()
-        } catch (error) {
-            toast.error("Failed to delete review")
-        }
+        confirmAlert({
+            title: "Confirm Deletion",
+            message: "Are you sure you want to delete this review?",
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: async () => {
+                        try {
+                            await axios.delete(`/api/users/reviews/${createdAt}`, {
+                                headers: {
+                                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                                },
+                            })
+                            toast.success("Review deleted successfully.")
+                            fetchReviews()
+                        } catch (error) {
+                            toast.error("Error deleting review. Please try again.")
+                        }
+                    },
+                },
+                {
+                    label: "No",
+                    onClick: () => { },
+                },
+            ],
+        })
     }
 
     useEffect(() => {

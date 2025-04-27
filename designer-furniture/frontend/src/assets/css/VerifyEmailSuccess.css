@@ -1,0 +1,66 @@
+/* verify email success */
+.verify-success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: "Poppins", sans-serif;
+}
+
+/* Card Styling */
+.verify-success-card {
+    background: #fff;
+    padding: 30px;
+    width: 400px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Title Styling */
+.verify-success-card h2 {
+    color: #2a5298;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+/* Paragraph Styling */
+.verify-success-card p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Celebration Animation */
+.celebration-animation {
+    font-size: 30px;
+    margin-top: 20px;
+    animation: bounce 1.5s infinite;
+}
+
+/* Fade In Effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bouncing Animation */
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}

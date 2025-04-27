@@ -60,6 +60,11 @@ const AuthProvider = ({ children }) => {
     const register = async (name, email, password) => {
         const response = await apiHandler(authRoutes.register, { name, email, password })
 
+        if (response?.email) {
+            toast.error("Email already exists")
+            return false
+        }
+
         if (response?.error) {
             toast.error(response.error)
             return false

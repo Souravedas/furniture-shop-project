@@ -18,13 +18,23 @@ const AdminPanel = () => {
 		link: "",
 	})
 	const [editingId, setEditingId] = useState(null)
+	const [category] = useState("all")
+	const [isLoading, setIsLoading] = useState(true)
 
 	const fetchFurniture = async () => {
+		setIsLoading(true); // Start loading
 		try {
-			const response = await axios.get("/api/furniture")
-			setFurniture(response.data);
+			const formattedCategory = category.replace(/_/g, " ")
+			const endpoint =
+				category === "all"
+					? `/api/furniture`
+					: `/api/furniture?category=${encodeURIComponent(formattedCategory)}`
+			const response = await axios.get(endpoint)
+			setFurniture(response.data)
 		} catch (error) {
 			console.error("Error fetching furniture:", error)
+		} finally {
+			setIsLoading(false); // Stop loading after fetch is done
 		}
 	}
 
@@ -133,27 +143,35 @@ const AdminPanel = () => {
 						</div>
 
 						<h3 className="admin-section-title">Existing Furniture</h3>
-						<div className="admin-furniture-grid">
-							{furniture.length > 0 ? (
-								furniture.map((item) => (
-									<div key={item._id} className="admin-furniture-card">
-										<div className="image-wrapper">
-											<img src={item.image} alt={item.name} />
+						{/* Furniture Grid */}
+						{isLoading ? (
+							<div className="loading-spinner">
+								<div className="spinner"></div>
+								<p>Loading furniture...</p>
+							</div>
+						) : (
+							<div className="admin-furniture-grid">
+								{furniture.length > 0 ? (
+									furniture.map((item) => (
+										<div key={item._id} className="admin-furniture-card">
+											<div className="image-wrapper">
+												<img src={item.image} alt={item.name} />
+											</div>
+											<div className="furniture-info">
+												<h3>{item.name}</h3>
+												<p><strong>Designer:</strong> {item.designer}</p>
+												<p><strong>Category:</strong> {item.category}</p>
+												<p><strong>Price:</strong> ৳{item.price}</p>
+												<button onClick={() => { handleEdit(item); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="edit-btn">Edit</button>
+												<button onClick={() => handleDelete(item._id)} className="delete-btn">Delete</button>
+											</div>
 										</div>
-										<div className="furniture-info">
-											<h3>{item.name}</h3>
-											<p><strong>Designer:</strong> {item.designer}</p>
-											<p><strong>Category:</strong> {item.category}</p>
-											<p><strong>Price:</strong> ৳{item.price}</p>
-											<button onClick={() => { handleEdit(item); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="edit-btn">Edit</button>
-											<button onClick={() => handleDelete(item._id)} className="delete-btn">Delete</button>
-										</div>
-									</div>
-								))
-							) : (
-								<p>No furniture available.</p>
-							)}
-						</div>
+									))
+								) : (
+									<p>No furniture available.</p>
+								)}
+							</div>
+						)}
 					</div>
 				) : (
 					<p className="admin-access-denied">Access denied. Admins only.</p>

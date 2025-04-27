@@ -22,6 +22,8 @@
 /*forgot password design*/
 @import "./assets/css/Login.css";
 /*login page design*/
+@import "./assets/css/VerifyEmailSuccess.css";
+/*verify email success design*/
 @import "./assets/css/Register.css";
 /*register page design*/
 @import "./assets/css/AdminSidebar.css";

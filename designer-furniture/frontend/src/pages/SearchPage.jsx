@@ -13,26 +13,30 @@ const SearchPage = () => {
 		JSON.parse(localStorage.getItem("selectedItems")) || []
 	)
 	const comparisonRef = useRef(null)
+	const [isLoading, setIsLoading] = useState(true)
 
 	// Fetch furniture based on selected category
 	useEffect(() => {
 		const fetchFurniture = async () => {
+			setIsLoading(true); // Start loading
 			try {
 				const formattedCategory = category.replace(/_/g, " ")
 				const endpoint =
 					category === "all"
 						? `/api/furniture`
 						: `/api/furniture?category=${encodeURIComponent(formattedCategory)}`
-
 				const response = await axios.get(endpoint)
 				setFurniture(response.data)
 			} catch (error) {
 				console.error("Error fetching furniture:", error)
+			} finally {
+				setIsLoading(false); // Stop loading after fetch is done
 			}
 		}
 
 		fetchFurniture()
 	}, [category])
+
 
 	// Scroll to comparison when two items are selected
 	useEffect(() => {
@@ -87,35 +91,43 @@ const SearchPage = () => {
 			</div>
 
 			{/* Furniture Grid */}
-			<div className="product-grid">
-				{furniture.length > 0 ? (
-					furniture.map((item) => (
-						<div key={item._id} className="product-card">
-							<img src={item.image} alt={item.name} />
-							<h3>{item.name}</h3>
-							<p><strong>Designer:</strong> {item.designer}</p>
-							<p><strong>Category:</strong> {item.category}</p>
-							<p><strong>Price:</strong> ৳{item.price}</p>
-							<div className="product-buttons">
-								<button
-									type="button"
-									onClick={() => window.open(item.link, "_blank")}
-								>
-									View Product
-								</button>
-								<button
-									type="button"
-									onClick={() => handleSelect(item)}
-								>
-									Compare
-								</button>
+			{isLoading ? (
+				<div className="loading-spinner">
+					<div className="spinner"></div>
+					<p>Loading furniture...</p>
+				</div>
+			) : (
+				<div className="product-grid">
+					{furniture.length > 0 ? (
+						furniture.map((item) => (
+							<div key={item._id} className="product-card">
+								<img src={item.image} alt={item.name} />
+								<h3>{item.name}</h3>
+								<p><strong>Designer:</strong> {item.designer}</p>
+								<p><strong>Category:</strong> {item.category}</p>
+								<p><strong>Price:</strong> ৳{item.price}</p>
+								<div className="product-buttons">
+									<button
+										type="button"
+										onClick={() => window.open(item.link, "_blank")}
+									>
+										View Product
+									</button>
+									<button
+										type="button"
+										onClick={() => handleSelect(item)}
+									>
+										Compare
+									</button>
+								</div>
 							</div>
-						</div>
-					))
-				) : (
-					<p>No furniture found.</p>
-				)}
-			</div>
+						))
+					) : (
+						<p>No furniture found.</p>
+					)}
+				</div>
+			)}
+
 
 			{/* Comparison Section */}
 			{selectedItems.length > 0 && (

@@ -1,257 +1,168 @@
 /* google font */
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap");
 
 /* fontawesome icon */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
-
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css");
 
 /* root variables */
 :root {
-  /* colors */
-  --body-bg: rgb(255, 255, 255);
-  --black: rgb(32, 28, 28);
-  --light-gray: rgb(247, 247, 247);
-  --gray: rgb(190, 190, 190);
+    /* colors */
+    --body-bg: rgb(255, 255, 255);
+    --black: rgb(32, 28, 28);
+    --light-gray: rgb(247, 247, 247);
+    --gray: rgb(190, 190, 190);
 
-  /* fonts */
-  --font-1: "Mulish", sans-serif;
-  --font-2: "Open Sans", sans-serif;
+    /* fonts */
+    --font-1: "Mulish", sans-serif;
+    --font-2: "Open Sans", sans-serif;
 
-  /* font sizes */
-  --body-font-size: 16px;
-  --section-heading-size: 28px;
+    /* font sizes */
+    --body-font-size: 16px;
+    --section-heading-size: 28px;
 }
 
-
 html {
-  font-size: 100%;
-  scroll-behavior: smooth;
+    font-size: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background: #F2EDD7;
-  font-family: var(--font-1);
-  overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background: #f2edd7;
+    font-family: var(--font-1);
+    overflow-x: hidden;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
-
 
 /* common designs */
 .my-section {
-  width: 100%;
-  height: auto;
-  display: block;
-  padding: 80px 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 80px 0;
 }
 
 .bg-gray {
-  background: var(--light-gray);
+    background: var(--light-gray);
 }
 
 /* section title */
 .section-title {
-  width: 100%;
-  height: auto;
-  text-align: center;
+    width: 100%;
+    height: auto;
+    text-align: center;
 }
 
 .section-title p {
-  color: var(--gray);
-  font-size: 14px;
-  font-weight: 800;
-  text-transform: capitalize;
-  padding-bottom: 10px;
+    color: var(--gray);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: capitalize;
+    padding-bottom: 10px;
 }
 
 .section-title h2 {
-  color: var(--black);
-  font-size: 28px;
-  font-weight: 700;
-  font-family: var(--font-2);
-  text-transform: uppercase;
-  letter-spacing: 15px;
+    color: var(--black);
+    font-size: 28px;
+    font-weight: 700;
+    font-family: var(--font-2);
+    text-transform: uppercase;
+    letter-spacing: 15px;
 }
-
 
 /* custom container */
 .container {
-  width: 100%;
-  padding: 0 10px;
-  margin: 0 auto;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
 }
 
 /* custom cards row */
 .card-row {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card-row .cards {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 0 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0 10px;
 }
 
 .auth-container,
 .verify-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f4f4;
 }
 
 .auth-card,
 .verify-card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .alert {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  text-align: center;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .alert.success {
-  background: #d4edda;
-  color: #155724;
+    background: #d4edda;
+    color: #155724;
 }
 
 .alert.error {
-  background: #f8d7da;
-  color: #721c24;
+    background: #f8d7da;
+    color: #721c24;
 }
-
 
 /* screens larger than 768 */
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 750px;
-  }
+    .container {
+        max-width: 750px;
+    }
 
-  .card-row .cards {
-    width: 50%;
-  }
+    .card-row .cards {
+        width: 50%;
+    }
 }
 
 /* screens larger than 991px */
 @media screen and (min-width: 991px) {
-  .container {
-    max-width: 950px;
-  }
+    .container {
+        max-width: 950px;
+    }
 
-  .card-row .cards {
-    width: 33%;
-  }
+    .card-row .cards {
+        width: 33%;
+    }
 }
 
 /* screens larger than 1200px */
 @media screen and (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
+    .container {
+        max-width: 1140px;
+    }
 
-  .card-row .cards {
-    width: 33%;
-  }
-}
-
-/* verify email success */
-.verify-success-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  font-family: "Poppins", sans-serif;
-}
-
-/* Card Styling */
-.verify-success-card {
-  background: #fff;
-  padding: 30px;
-  width: 400px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.8s ease-in-out;
-}
-
-/* Title Styling */
-.verify-success-card h2 {
-  color: #2a5298;
-  margin-bottom: 15px;
-  font-size: 24px;
-}
-
-/* Paragraph Styling */
-.verify-success-card p {
-  color: #555;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-/* Login Button */
-.login-btn {
-  display: inline-block;
-  background: #2a5298;
-  color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background 0.3s ease-in-out;
-}
-
-.login-btn:hover {
-  background: #1e3c72;
-}
-
-/* Celebration Animation */
-.celebration-animation {
-  font-size: 30px;
-  margin-top: 20px;
-  animation: bounce 1.5s infinite;
-}
-
-/* Fade In Effect */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Bouncing Animation */
-@keyframes bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
+    .card-row .cards {
+        width: 33%;
+    }
 }

@@ -4,7 +4,6 @@
     background: linear-gradient(to bottom right, #fdf6e3, #f2edd7);
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
     text-align: center;
 }
 
@@ -49,7 +48,7 @@
 
 .review-form h3 {
     margin-bottom: 20px;
-    color: #3498db;
+    color: #755139;
 }
 
 .star-rating {
@@ -68,6 +67,7 @@
 
 .star-rating .fas {
     color: gold;
+    padding-top: 10px;
 }
 
 /* Textarea */
@@ -85,7 +85,7 @@
 
 /* Submit Button */
 .submit-btn {
-    background: #3498db;
+    background: #755139;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -96,7 +96,7 @@
 }
 
 .submit-btn:hover {
-    background: #2980b9;
+    background: #5e2906;
 }
 
 /* Carousel Container */
@@ -118,7 +118,8 @@
     background: white;
     padding: 30px;
     border-radius: 20px;
-    width: 320px;
+    width: auto;
+    max-width: 400px;
     min-height: 250px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -129,9 +130,16 @@
     opacity: 0;
 }
 
-/* Avatar */
-.avatar {
-    background: #3498db;
+.initials .review-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.get-initials {
+    background: #755139;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -183,7 +191,7 @@
     background: none;
     border: none;
     font-size: 32px;
-    color: #3498db;
+    color: #755139;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -209,13 +217,12 @@
 }
 
 .dot.active {
-    background: #3498db;
+    background: #755139;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
     .carousel-container {
-        flex-direction: column;
         gap: 20px;
     }
 }

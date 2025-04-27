@@ -24,7 +24,7 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
-// 🆕 Submit a review
+// Submit a review
 export const submitReview = async (req, res) => {
     try {
         const { rating, content } = req.body
@@ -82,20 +82,36 @@ export const getAllReviews = async (req, res) => {
 // DELETE specific review by createdAt
 export const deleteReview = async (req, res) => {
     try {
-        const { createdAt } = req.params;
+        const { createdAt } = req.params
 
-        const user = await User.findOne({ "reviews.createdAt": new Date(createdAt) });
+        const user = await User.findOne({ "reviews.createdAt": new Date(createdAt) })
 
-        if (!user) return res.status(404).json({ message: "Review not found" });
+        if (!user) return res.status(404).json({ message: "Review not found" })
 
         user.reviews = user.reviews.filter(
             (review) => review.createdAt.toISOString() !== new Date(createdAt).toISOString()
-        );
+        )
 
         await user.save();
-        res.status(200).json({ message: "Review deleted successfully" });
+        res.status(200).json({ message: "Review deleted successfully" })
     } catch (error) {
-        console.error("Delete review error:", error);
-        res.status(500).json({ message: "Server error" });
+        console.error("Delete review error:", error)
+        res.status(500).json({ message: "Server error" })
     }
-};
+}
+
+// Clear a user's message
+export const clearUserMessage = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user) return res.status(404).json({ message: "User not found" })
+
+        user.message = ""
+        await user.save()
+
+        res.status(200).json({ message: "User message cleared successfully." })
+    } catch (error) {
+        console.error("Clear message error:", error)
+        res.status(500).json({ message: "Server error" })
+    }
+}
